@@ -1,14 +1,18 @@
 [
-  {
-    "nombre": "David Martinez",
-    "archivo": "david"
-  },
-  {
-    "nombre": "Juan Pérez",
-    "archivo": "juan"
-  },
-  {
-    "nombre": "Sofía Gómez",
-    "archivo": "sofia"
-  }
+    {
+        "nombre": "David Martinez",
+        "archivo": "david"
+    },
+    {
+        "nombre": "Juan Pérez",
+        "archivo": "juan"
+    },
+    {
+        "nombre": "Sofía Gómez",
+        "archivo": "sofia"
+    },
+    {
+        "nombre": "angelica ortega",
+        "archivo": "angelica_ortega"
+    }
 ]
