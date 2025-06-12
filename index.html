@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>QR Niños Vulnerables</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto QR - Niños Vulnerables</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>📌 Proyecto QR - Niños Vulnerables</h1>
-  <ul>
-    <li><a href="perfil.html?nino=david">David Martinez</a></li>
-  </ul>
+
+  <header>
+    <h1>Proyecto QR - Niños Vulnerables</h1>
+    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">
+      ☀️ / 🌙
+    </button>
+  </header>
+
+  <main>
+    <p>
+      Este es un proyecto creado con el objetivo de ayudar a personas en situaciones de vulnerabilidad.
+      Nuestra idea es generar códigos QR que permitan identificar rápidamente a niños que necesiten apoyo especial,
+      como aquellos con autismo o cualquier condición que requiera atención específica en caso de extravío.
+    </p>
+    <p>
+      Cada código QR lleva directamente al perfil del niño o niña, mostrando información clave para quienes puedan encontrarlos.
+      Queremos hacerlo crecer poco a poco, esperando que sea de utilidad para la sociedad.
+    </p>
+
+    <h2>📌 Niños Registrados</h2>
+    <ul>
+      <li><a href="perfil.html?nino=david">David Martinez</a></li>
+      <!-- Aquí puedes ir agregando nuevos niños -->
+    </ul>
+  </main>
+
+  <footer>
+    ❤️ Desarrollado por <strong>Gama Digital Studio</strong>
+  </footer>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
