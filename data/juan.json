@@ -1,0 +1,10 @@
+{
+  "nombre": "Juan Pérez",
+  "diagnostico": "Trastorno del Espectro Autista (TEA)",
+  "contacto": {
+    "nombre": "María López",
+    "parentesco": "Madre",
+    "telefono": "+54 9 11 2233 4455"
+  },
+  "notas": "Juan tiene 6 años y le encanta jugar con bloques de colores. Es muy sensible al ruido fuerte, por lo que se recomienda hablarle con calma si se pierde. Le gusta el helado de vainilla y su juguete favorito es un dinosaurio verde."
+}
