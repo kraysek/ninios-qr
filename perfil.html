@@ -1,0 +1,45 @@
+echo '<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil del Niño</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+    .perfil { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; }
+    img { max-width: 100%; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <div class="perfil" id="datos"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nombre = urlParams.get("nino") || "david";
+
+    fetch(\`data/\${nombre}.json\`)
+      .then(res => res.json())
+      .then(datos => {
+        let fotoHTML = "";
+        if (datos.foto) {
+          fotoHTML = \`<img src="\${datos.foto}" alt="Foto de \${datos.nombre}"><br><br>\`;
+        }
+
+        document.getElementById("datos").innerHTML = \`
+          <h2>🚨 Datos de \${datos.nombre}</h2>
+          \${fotoHTML}
+          <p><strong>Diagnóstico:</strong> \${datos.diagnostico}</p>
+          <p><strong>Contacto:</strong></p>
+          <ul>
+            <li><strong>Nombre:</strong> \${datos.contacto.nombre}</li>
+            <li><strong>Parentesco:</strong> \${datos.contacto.parentesco}</li>
+            <li><strong>Teléfono:</strong> \${datos.contacto.telefono}</li>
+          </ul>
+          <p><strong>Notas:</strong> \${datos.notas}</p>
+        \`;
+      })
+      .catch(err => {
+        document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
+      });
+  </script>
+</body>
+</html>' > perfil.html

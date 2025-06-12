@@ -1,0 +1,11 @@
+echo '{
+  "nombre": "David Martinez",
+  "diagnostico": "Autismo",
+  "edad": 14,
+  "contacto": {
+    "nombre": "Gerardo",
+    "parentesco": "padre",
+    "telefono": "+52 55 1960 5115"
+  },
+  "notas": "Le gusta el agua, evita multitudes, responde mejor a estímulos visuales."
+}' > data/david.json
