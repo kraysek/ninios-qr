@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test JSON</title></head>
+<body>
+<script>
+fetch("data/david.json")
+  .then(res => res.json())
+  .then(json => console.log("Datos cargados:", json))
+  .catch(err => console.error("Error:", err));
+</script>
+</body>
+</html>' > test.html
