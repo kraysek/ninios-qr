@@ -1,4 +1,4 @@
-echo '{
+{
   "nombre": "David Martinez",
   "diagnostico": "Autismo",
   "edad": 14,
