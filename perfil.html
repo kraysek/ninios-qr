@@ -12,27 +12,28 @@
   <div class="perfil" id="datos"></div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const nombre = urlParams.get("nino") || "david";
+  const urlParams = new URLSearchParams(window.location.search);
+  const nombre = urlParams.get("nino") || "david";
 
-    fetch(`data/\${nombre}.json`)
-      .then(res => res.json())
-      .then(datos => {
-        document.getElementById("datos").innerHTML = \`
-          <h2>🚨 Datos de \${datos.nombre}</h2>
-          <p><strong>Diagnóstico:</strong> \${datos.diagnostico}</p>
-          <p><strong>Contacto:</strong></p>
-          <ul>
-            <li><strong>Nombre:</strong> \${datos.contacto.nombre}</li>
-            <li><strong>Parentesco:</strong> \${datos.contacto.parentesco}</li>
-            <li><strong>Teléfono:</strong> \${datos.contacto.telefono}</li>
-          </ul>
-          <p><strong>Notas:</strong> \${datos.notas}</p>
-        \`;
-      })
-      .catch(err => {
-        document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
-      });
-  </script>
+  fetch(`data/${nombre}.json`)
+    .then(res => res.json())
+    .then(datos => {
+      document.getElementById("datos").innerHTML = `
+        <h2>🚨 Datos de ${datos.nombre}</h2>
+        <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
+        <p><strong>Contacto:</strong></p>
+        <ul>
+          <li><strong>Nombre:</strong> ${datos.contacto.nombre}</li>
+          <li><strong>Parentesco:</strong> ${datos.contacto.parentesco}</li>
+          <li><strong>Teléfono:</strong> ${datos.contacto.telefono}</li>
+        </ul>
+        <p><strong>Notas:</strong> ${datos.notas}</p>
+      `;
+    })
+    .catch(err => {
+      document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
+      console.error("Error al cargar datos:", err);
+    });
+</script>
 </body>
 </html>
