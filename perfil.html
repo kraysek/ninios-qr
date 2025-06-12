@@ -1,39 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Perfil del Niño</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
-    .perfil { background: white; padding: 20px; border-radius: 10px; max-width: 500px; margin: auto; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="perfil" id="datos"></div>
+<body class="light-mode">
+
+  <header>
+    <h1>Proyecto QR - Perfil del Niño</h1>
+    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">☀️ / 🌙</button>
+  </header>
+
+  <main>
+    <div class="perfil" id="datos">
+      <!-- Aquí se inyectan los datos desde script.js -->
+    </div>
+  </main>
+
+  <footer>
+    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
+  </footer>
+
+  <script src="script.js"></script>
 
   <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const nombre = urlParams.get("nino") || "david";
+    // Cargar el nombre desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const nombre = urlParams.get("nino") || "david";
 
-  fetch(`data/${nombre}.json`)
-    .then(res => res.json())
-    .then(datos => {
-      document.getElementById("datos").innerHTML = `
-        <h2>🚨 Datos de ${datos.nombre}</h2>
-        <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
-        <p><strong>Contacto:</strong></p>
-        <ul>
-          <li><strong>Nombre:</strong> ${datos.contacto.nombre}</li>
-          <li><strong>Parentesco:</strong> ${datos.contacto.parentesco}</li>
-          <li><strong>Teléfono:</strong> ${datos.contacto.telefono}</li>
-        </ul>
-        <p><strong>Notas:</strong> ${datos.notas}</p>
-      `;
-    })
-    .catch(err => {
-      document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
-      console.error("Error al cargar datos:", err);
-    });
-</script>
+    fetch(`data/${nombre}.json`)
+      .then(res => {
+        if (!res.ok) throw new Error("Niño no encontrado");
+        return res.json();
+      })
+      .then(datos => {
+        // Separar las notas por punto y crear párrafos independientes
+        const parrafosNotas = datos.notas
+          .split(". ")
+          .map(p => p.trim())
+          .filter(p => p.length > 0);
+
+        let html = `
+          <h2>🚨 Datos de ${datos.nombre}</h2>
+          <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
+          <p><strong>Contacto:</strong></p>
+          <ul>
+            <li><strong>Nombre:</strong> ${datos.contacto.nombre}</li>
+            <li><strong>Parentesco:</strong> ${datos.contacto.parentesco}</li>
+            <li><strong>Teléfono:</strong> ${datos.contacto.telefono}</li>
+          </ul>
+        `;
+
+        parrafosNotas.forEach(parrafo => {
+          html += `<p>${parrafo}.</p>`;
+        });
+
+        html += "</div>";
+
+        document.getElementById("datos").innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
+        console.error("Error al cargar datos:", err);
+      });
+  </script>
+
 </body>
 </html>
