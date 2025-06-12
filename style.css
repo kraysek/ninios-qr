@@ -5,11 +5,11 @@
   --color-dark: #2c2c2c;
   --bg-color: #f5f5f5;
   --text-color: #333333;
-  --accent-color: #e91e63;
-  --header-bg-light: #ffe6f0; /* Rosado claro */
-  --header-bg-dark: #1a1a1a;  /* Negro suave */
+  --accent-color: #FF4081; /* Color oficial de Gama Digital Studio */
+  --header-bg-light: #ffe6f0;
+  --header-bg-dark: #1a1a1a;
   --transition-speed: 0.3s;
-  --font-size-base: 17px;     /* Tamaño base de letra más grande */
+  --font-size-base: 19px; /* Letra más grande */
 }
 
 body.dark-mode {
@@ -69,11 +69,10 @@ footer {
   margin-top: 40px;
   text-align: center;
   font-size: 0.9rem;
-  color: #888;
 }
 
 footer a {
-  color: var(--accent-color);
+  color: var(--accent-color); /* Color de Gama Digital Studio */
   text-decoration: none;
 }
 
@@ -117,6 +116,15 @@ ul li {
 
 p {
   line-height: 1.6;
+}
+
+a {
+  color: var(--accent-color); /* Todos los enlaces usan el color de Gama Digital Studio */
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 /* Responsive */

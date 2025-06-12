@@ -7,11 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
 
   if (savedTheme === "dark") {
-    document.body.classList.remove("light-mode");
     document.body.classList.add("dark-mode");
-  } else {
-    document.body.classList.remove("dark-mode");
+    document.body.classList.remove("light-mode");
+  } else if (savedTheme === "light") {
     document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+  } else {
+    // Por defecto, activa el modo oscuro
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    localStorage.setItem("theme", "dark");
   }
 });
 
