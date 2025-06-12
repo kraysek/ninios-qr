@@ -2,7 +2,7 @@ import qrcode
 import json
 import os
 
-# Carpeta donde se guardarán los archivos
+# Carpeta donde se guardarán los perfiles y la lista
 DATA_DIR = "../data"
 QR_DIR = "."
 
@@ -15,7 +15,7 @@ def guardar_json(datos, nombre_archivo):
 
 def actualizar_lista(nombre_real, nombre_archivo):
     lista_path = os.path.join(DATA_DIR, "lista.json")
-    
+
     if os.path.exists(lista_path):
         with open(lista_path, "r", encoding="utf-8") as f:
             try:
@@ -25,7 +25,7 @@ def actualizar_lista(nombre_real, nombre_archivo):
     else:
         lista = []
 
-    # Asegurarse de no duplicar
+    # Evita duplicados
     if not any(item["archivo"] == nombre_archivo for item in lista):
         lista.append({
             "nombre": nombre_real,
@@ -40,33 +40,42 @@ def generar_qr(nombre_nino):
     qr = qrcode.make(url_perfil)
     nombre_archivo_qr = f"qr_{limpiar_nombre(nombre_nino)}.png"
     qr.save(os.path.join(QR_DIR, nombre_archivo_qr))
-    print(f"✅ QR generado correctamente como '{nombre_archivo_qr}'")
+    print(f"\n✅ QR generado correctamente como '{nombre_archivo_qr}'")
     print(f"🔗 Este QR lleva a: {url_perfil}")
 
 def main():
     print("\n👶 Registro de Niño - Proyecto QR - Niños Vulnerables\n")
 
+    # Datos personales del niño 
     nombre = input("Nombre completo del niño/a: ").strip()
     edad = input("Edad: ").strip()
     diagnostico = input("Diagnóstico o condición especial: ").strip()
-    contacto = input("Nombre del contacto: ").strip()
-    telefono = input("Teléfono de contacto: ").strip()
-    notas = input("Notas importantes (ej. alergias, comportamiento): ").strip()
+    
+    # Datos del contacto
+    contacto_nombre = input("Nombre del contacto: ").strip()
+    contacto_parentesco = input("Parentesco (ej. Padre, Madre, Tutor): ").strip()
+    contacto_telefono = input("Teléfono de contacto: ").strip()
 
+    # Notas importantes
+    notas = input("Notas importantes (ej. comportamiento, alergias): ").strip()
+
+    # Limpieza del nombre para usarlo en URLs y archivos
     nombre_guardado = limpiar_nombre(nombre)
 
+    # Estructura del perfil
     datos = {
         "nombre": nombre,
         "edad": edad,
         "diagnostico": diagnostico,
         "contacto": {
-            "nombre": contacto,
-            "telefono": telefono
+            "nombre": contacto_nombre,
+            "parentesco": contacto_parentesco,
+            "telefono": contacto_telefono
         },
         "notas": notas
     }
 
-    # Guardar el perfil del niño/a 
+    # Guardar el perfil del niño/a
     guardar_json(datos, nombre_guardado)
 
     # Actualizar lista.json

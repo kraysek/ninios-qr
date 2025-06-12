@@ -1,0 +1,11 @@
+{
+    "nombre": "Adrian Zamora",
+    "edad": "12",
+    "diagnostico": "deficit de atencion",
+    "contacto": {
+        "nombre": "Adriana Zamora",
+        "parentesco": "madre",
+        "telefono": "55 12346541"
+    },
+    "notas": "no le gustan las arañas"
+}
