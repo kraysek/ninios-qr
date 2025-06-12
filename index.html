@@ -34,10 +34,24 @@
   </p>
 
     <h2>📌 Niños Registrados</h2>
-    <ul>
-      <li><a href="perfil.html?nino=david">David Martinez</a></li>
-      <!-- Aquí puedes ir agregando nuevos niños -->
-    </ul>
+<ul id="listaNinos"></ul>
+
+  <script>
+    fetch('data/lista.json')
+      .then(res => res.json())
+      .then(lista => {
+        const listaEl = document.getElementById("listaNinos");
+        lista.forEach(nino => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="perfil.html?nino=${nino.archivo}">${nino.nombre}</a>`;
+          listaEl.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error("Error al cargar la lista:", err);
+        document.getElementById("listaNinos").innerHTML = "<li>Error al cargar los niños.</li>";
+      });
+  </script>
   </main>
 
   <footer>

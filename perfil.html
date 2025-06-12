@@ -9,13 +9,13 @@
 <body class="light-mode">
 
   <header>
-    <h1><a href="index.html">Proyecto QR - Niños Vulnerables</a></h1>
+    <h1><a href="index.html">Proyecto QR - Perfil del Niño</a></h1>
     <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">☀️ / 🌙</button>
   </header>
 
   <main>
     <div class="perfil" id="datos">
-      <!-- Aquí se inyectan los datos desde script.js -->
+      <!-- Datos inyectados desde script -->
     </div>
   </main>
 
@@ -23,10 +23,9 @@
     ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 
   <script>
-    // Cargar el nombre desde la URL
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get("nino") || "david";
 
@@ -36,7 +35,6 @@
         return res.json();
       })
       .then(datos => {
-        // Separar las notas por punto y crear párrafos independientes
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
@@ -56,8 +54,6 @@
         parrafosNotas.forEach(parrafo => {
           html += `<p>${parrafo}.</p>`;
         });
-
-        html += "</div>";
 
         document.getElementById("datos").innerHTML = html;
       })
