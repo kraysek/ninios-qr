@@ -1,24 +1,118 @@
 import qrcode
-import sys
+import json
+import os
+
+DATA_DIR = "../data"
+QR_DIR = "."
+LISTA_JSON = os.path.join(DATA_DIR, "lista.json")
+
+def limpiar_nombre(nombre):
+    return nombre.replace(" ", "_").lower()
+
+def guardar_json(datos, nombre_archivo):
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+    with open(os.path.join(DATA_DIR, f"{nombre_archivo}.json"), 'w', encoding='utf-8') as f:
+        json.dump(datos, f, indent=4, ensure_ascii=False)
+
+def actualizar_lista(nombre_real, nombre_archivo):
+    if not os.path.exists(LISTA_JSON):
+        with open(LISTA_JSON, 'w', encoding='utf-8') as f:
+            json.dump([], f)
+
+    with open(LISTA_JSON, "r", encoding="utf-8") as f:
+        try:
+            lista = json.load(f)
+        except json.JSONDecodeError:
+            lista = []
+
+    if not any(item["archivo"] == nombre_archivo for item in lista):
+        lista.append({
+            "nombre": nombre_real,
+            "archivo": nombre_archivo
+        })
+
+    with open(LISTA_JSON, "w", encoding="utf-8") as f:
+        json.dump(lista, f, indent=4, ensure_ascii=False)
 
 def generar_qr(nombre_nino):
-    # URL del perfil del niño (GitHub Pages)
-    url_perfil = f"https://kraysek.github.io/ninios-qr/perfil.html?nino={nombre_nino.lower()}"
-
-    # Genera el QR 
+    url_perfil = f"https://kraysek.github.io/ninios-qr/perfil.html?nino={limpiar_nombre(nombre_nino)}"
     qr = qrcode.make(url_perfil)
-
-    # Guarda el archivo con el nombre del niño
-    nombre_archivo = f"qr_{nombre_nino.replace(' ', '_')}.png"
-    qr.save(nombre_archivo)
-
-    print(f"✅ QR generado correctamente como '{nombre_archivo}'")
+    nombre_archivo_qr = f"qr_{limpiar_nombre(nombre_nino)}.png"
+    qr.save(os.path.join(QR_DIR, nombre_archivo_qr))
+    print(f"\n✅ QR generado como '{nombre_archivo_qr}'")
     print(f"🔗 Este QR lleva a: {url_perfil}")
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("❌ Uso: python3 generar_qr_perfil.py \"Nombre del Niño\"")
-        sys.exit(1)
+def leer_datos_desde_txt(archivo_txt):
+    datos = {}
+    with open(archivo_txt, "r", encoding="utf-8") as f:
+        for linea in f:
+            linea = linea.strip()
+            if ":" in linea and linea.split(":")[1].strip():
+                clave, valor = linea.split(":", 1)
+                datos[clave.strip()] = valor.strip()
+    return datos
 
-    nombre_nino = sys.argv[1]
-    generar_qr(nombre_nino)
+def main():
+    print("\n📄 Registro de Niño - Proyecto QR - Niños Vulnerables")
+    print("🔧 Leyendo datos desde archivo .txt\n")
+
+    # Nombre del niño (ajustado para usar con input o desde línea de comando) 
+    archivo_txt = input("Nombre del archivo TXT (sin extensión): ").strip() + ".txt"
+
+    if not os.path.exists(archivo_txt):
+        print(f"❌ Error: El archivo '{archivo_txt}' no existe.")
+        return
+
+    datos = leer_datos_desde_txt(archivo_txt)
+
+    nombre = datos.get("nombre", "")
+    diagnostico = datos.get("diagnostico", "")
+    tipo_de_sangre = datos.get("tipo_de_sangre", "")
+    alergias = datos.get("alergias", "")
+    notas = datos.get("notas", "")
+
+    contacto1_nombre = datos.get("contacto1_nombre", "")
+    contacto1_telefono = datos.get("contacto1_telefono", "")
+
+    contacto2_nombre = datos.get("contacto2_nombre", "")
+    contacto2_telefono = datos.get("contacto2_telefono", "")
+
+    if not nombre:
+        print("❌ Error: El archivo no tiene un nombre válido.")
+        return
+
+    contacto1 = {
+        "nombre": contacto1_nombre or "",
+        "telefono": contacto1_telefono or ""
+    }
+
+    contacto2 = {}
+    if contacto2_nombre or contacto2_telefono:
+        contacto2 = {
+            "nombre": contacto2_nombre or "",
+            "telefono": contacto2_telefono or ""
+        }
+
+    nombre_guardado = limpiar_nombre(nombre)
+
+    perfil = {
+        "nombre": nombre,
+        "diagnostico": diagnostico,
+        "tipo_de_sangre": tipo_de_sangre,
+        "alergias": alergias,
+        "notas": notas,
+        "contacto1": contacto1,
+        "contacto2": contacto2
+    }
+
+    guardar_json(perfil, nombre_guardado)
+    generar_qr(nombre)
+    actualizar_lista(nombre, nombre_guardado)
+
+    print("\n✅ El niño/a ha sido registrado exitosamente.")
+    print(f"📁 Datos guardados en: ../data/{nombre_guardado}.json")
+    print(f"📌 Ahora aparecerá en el sitio web.")
+
+if __name__ == "__main__":
+    main()

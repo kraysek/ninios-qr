@@ -15,7 +15,8 @@
 
   <main>
     <div class="perfil" id="datos">
-      <!-- Aquí se inyectan los datos -->
+      <!-- Datos inyectados desde JS -->
+      <p>Cargando datos del niño...</p>
     </div>
   </main>
 
@@ -24,9 +25,9 @@
   </footer>
 
   <!-- Script principal -->
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 
-  <!-- Lógica de carga de perfil -->
+  <!-- Lógica de perfil -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get("nino") || "david";
@@ -37,7 +38,7 @@
         return res.json();
       })
       .then(datos => {
-        // Dividir notas en párrafos
+        // Separar notas por punto
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
@@ -48,15 +49,30 @@
           <h2>🚨 Datos de ${datos.nombre}</h2>
           <p><strong>Edad:</strong> ${datos.edad} años</p>
           <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
-          <p><strong>Contacto:</strong></p>
+          <p><strong>Alergias:</strong> ${datos.alergias === "" ? "Ninguna" : datos.alergias}</p>
+          
+          <p><strong>Contacto Principal:</strong></p>
           <ul>
-            <li><strong>Nombre:</strong> ${datos.contacto.nombre}</li>
-            <li><strong>Parentesco:</strong> ${datos.contacto.parentesco}</li>
-            <li><strong>Teléfono:</strong> ${datos.contacto.telefono}</li>
+            <li><strong>Nombre:</strong> ${datos.contacto1?.nombre || "No registrado"}</li>
+            <li><strong>Parentesco:</strong> ${datos.contacto1?.parentesco || "No especificado"}</li>
+            <li><strong>Teléfono:</strong> ${datos.contacto1?.telefono || "No disponible"}</li>
           </ul>
-          <p><strong>Notas:</strong></p>
         `;
 
+        // Mostrar contacto secundario solo si tiene datos
+        if (datos.contacto2 && datos.contacto2.nombre && datos.contacto2.nombre.trim() !== "") {
+          html += `
+            <p><strong>Contacto Secundario:</strong></p>
+            <ul>
+              <li><strong>Nombre:</strong> ${datos.contacto2.nombre}</li>
+              <li><strong>Parentesco:</strong> ${datos.contacto2.parentesco}</li>
+              <li><strong>Teléfono:</strong> ${datos.contacto2.telefono}</li>
+            </ul>
+          `;
+        }
+
+        // Mostrar notas como párrafos independientes
+        html += `<p><strong>Notas importantes:</strong></p>`;
         parrafosNotas.forEach(parrafo => {
           html += `<p>${parrafo}.</p>`;
         });

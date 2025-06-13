@@ -1,0 +1,9 @@
+nombre: David Martínez Hernández
+diagnostico: Padecimiento autismo típico
+tipo_de_sangre: A positivo
+alergias: ninguna
+contacto1_nombre: Gerardo Martínez (Papá)
+contacto1_telefono: 55 19 60 51 15
+contacto2_nombre: Martha Martínez (Tía)
+contacto2_telefono: 55 22 68 96 17
+notas: Le gusta jugar con bloques, responde mejor a estímulos visuales, se asusta fácilmente con ruidos fuertes.

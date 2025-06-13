@@ -1,0 +1,15 @@
+{
+    "nombre": "David Martínez Hernández",
+    "diagnostico": "Padecimiento autismo típico",
+    "tipo_de_sangre": "A positivo",
+    "alergias": "ninguna",
+    "notas": "Le gusta jugar con bloques, responde mejor a estímulos visuales, se asusta fácilmente con ruidos fuertes.",
+    "contacto1": {
+        "nombre": "Gerardo Martínez (Papá)",
+        "telefono": "55 19 60 51 15"
+    },
+    "contacto2": {
+        "nombre": "Martha Martínez (Tía)",
+        "telefono": "55 22 68 96 17"
+    }
+}
