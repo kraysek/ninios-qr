@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proyecto QR - Niños Vulnerables</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,20 +10,25 @@
 
   <header>
     <h1><a href="index.html">Proyecto QR - Niños Vulnerables</a></h1>
-    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">☀️ / 🌙</button>
+    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">
+      ☀️ / 🌙
+    </button>
   </header>
 
   <main>
     <p class="parrafo">
       Este es un proyecto creado con el objetivo de ayudar a personas en situaciones de vulnerabilidad.
     </p>
+
     <p class="parrafo">
       Nuestra idea es generar códigos QR que permitan identificar rápidamente a niños que necesiten apoyo especial,
       como aquellos con autismo o cualquier condición que requiera atención específica en caso de extravío.
     </p>
+
     <p class="parrafo">
       Cada código QR lleva directamente al perfil del niño o niña, mostrando información clave para quienes puedan encontrarlos.
     </p>
+
     <p class="parrafo">
       Queremos hacerlo crecer poco a poco, esperando que sea de utilidad para la sociedad.
     </p>
@@ -36,8 +41,11 @@
     ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+
   <script>
+    // Cargar lista dinámica desde data/lista.json
     fetch('data/lista.json')
       .then(res => res.json())
       .then(lista => {
@@ -50,6 +58,7 @@
       })
       .catch(err => {
         console.error("Error al cargar la lista:", err);
+        document.getElementById("listaNinos").innerHTML = "<li>Error al cargar los niños.</li>";
       });
   </script>
 

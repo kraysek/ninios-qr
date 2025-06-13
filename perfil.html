@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Perfil del Niño</title>
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="light-mode">
 
@@ -15,8 +15,8 @@
 
   <main>
     <div class="perfil" id="datos">
-      <!-- Datos inyectados desde JS -->
-      <p>Cargando datos...</p>
+      <!-- Datos inyectados desde script -->
+      <p>Cargando datos del niño...</p>
     </div>
   </main>
 
@@ -24,7 +24,10 @@
     ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
-  <script src="../script.js"></script>
+  <!-- Script principal -->
+  <script src="script.js"></script>
+
+  <!-- Lógica de carga de perfil -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get("nino") || "david";
@@ -35,6 +38,7 @@
         return res.json();
       })
       .then(datos => {
+        // Dividir notas en párrafos
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
@@ -55,7 +59,7 @@
           </ul>
         `;
 
-        if (Object.keys(datos.contacto2).length > 0 && (datos.contacto2.nombre || datos.contacto2.telefono)) {
+        if (datos.contacto2 && (datos.contacto2.nombre || datos.contacto2.telefono)) {
           html += `
             <p><strong>Contacto Secundario:</strong></p>
             <ul>
