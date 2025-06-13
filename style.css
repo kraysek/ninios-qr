@@ -1,22 +1,25 @@
+/* style.css */
 :root {
   --color-light: #ffffff;
-  --color-dark: #2c2c2c;
-  --bg-color: #f5f5f5;
-  --text-color: #333333;
-  --accent-color: #FF4081;
-  --header-bg-light: #ffe6f0;
-  --header-bg-dark: #1a1a1a;
+  --color-dark: #2d3748;
+  --bg-color: #f0faf5; /* Verde claro (modo claro) */
+  --text-color: #2d3748; /* Gris azulado */
+  --accent-color: #38a169; /* Verde bosque */
+  --card-bg: #e8f9ef; /* Fondo de perfil más suave */
   --transition-speed: 0.3s;
   --font-size-base: 19px;
 }
 
 body.dark-mode {
-  --color-light: #2c2c2c;
+  --color-light: #2d3137; /* Vino medio */
   --color-dark: #f0f0f0;
-  --bg-color: #1a1a1a;
-  --text-color: #dddddd;
+  --bg-color: #1b1e23; /* Fondo oscuro elegante */
+  --text-color: #e2e8f0; /* Texto claro en modo oscuro */
+  --card-bg: #2d3137;
+  --accent-color: #d63939; /* Rojo vino intenso */
 }
 
+/* Estilos generales */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,16 +39,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--header-bg-light);
+  background-color: var(--accent-color);
   padding: 15px 20px;
   border-radius: 12px;
-  margin-bottom: 30px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode header {
-  background-color: var(--header-bg-dark);
-  color: white;
+  margin-bottom: 30px;
 }
 
 header h1 {
@@ -67,15 +65,16 @@ footer {
   margin-top: 40px;
   text-align: center;
   font-size: 0.9rem;
+  color: #cbd5e0;
 }
 
 footer a {
   color: var(--accent-color);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .toggle-theme {
@@ -83,19 +82,23 @@ footer a:hover {
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
-  transition: transform var(--transition-speed) ease;
+  color: white;
+  transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease;
 }
 
 .toggle-theme:hover {
   transform: rotate(12deg);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 4px;
 }
 
 .perfil {
-  background-color: var(--color-light);
+  background-color: var(--card-bg);
   color: var(--text-color);
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: background-color var(--transition-speed) ease,
               color var(--transition-speed) ease;
 }
@@ -125,6 +128,11 @@ a:hover {
   text-decoration: none;
 }
 
+.parrafo {
+  margin-bottom: 1em;
+}
+
+/* Responsive design */
 @media (max-width: 600px) {
   header h1 {
     font-size: 1.4rem;
