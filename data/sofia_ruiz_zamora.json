@@ -1,0 +1,11 @@
+{
+    "nombre": "Sofia Ruiz Zamora",
+    "edad": "14",
+    "diagnostico": "no obedece",
+    "contacto": {
+        "nombre": "Julio Ruiz Fierro",
+        "parentesco": "padre",
+        "telefono": "5570795643"
+    },
+    "notas": "ya va a ser su cumpleaños"
+}
