@@ -1,0 +1,11 @@
+{
+    "nombre": "Angelica Ortega",
+    "edad": "8",
+    "diagnostico": "se desconecta de la realidad",
+    "contacto": {
+        "nombre": "Adriana Zamora Rojas",
+        "parentesco": "madre",
+        "telefono": "52 87455632"
+    },
+    "notas": "puede lllorar y reir al mismo tiempo"
+}
