@@ -1,0 +1,20 @@
+# Ficha de registro - Proyecto QR - Niños Vulnerables
+
+nombre: [Nombre completo]
+edad: [Edad del niño]
+diagnostico: [Condición o diagnóstico]
+tipo_de_sangre: [Tipo sanguíneo]
+alergias: [Alergias relevantes]
+
+# Contacto 1 (obligatorio)
+contacto1_nombre: [Nombre del contacto principal]
+contacto1_parentesco: [Parentesco: Madre, Padre, Tutor...]
+contacto1_telefono: [Teléfono de contacto 1]
+
+# Contacto 2 (opcional)
+contacto2_nombre: [Nombre del segundo contacto]
+contacto2_parentesco: [Parentesco del segundo contacto]
+contacto2_telefono: [Teléfono del segundo contacto]
+
+# Notas importantes
+notas: [Información relevante sobre comportamiento, rutinas, etc.]

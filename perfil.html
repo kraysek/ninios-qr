@@ -1,89 +1,57 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Perfil del Niño</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const nombre = urlParams.get("nino") || "david";
 
-  <header>
-    <h1><a href="index.html">Proyecto QR - Perfil del Niño</a></h1>
-    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">☀️ / 🌙</button>
-  </header>
+  fetch(`data/${nombre}.json`)
+    .then(res => {
+      if (!res.ok) throw new Error("Niño no encontrado");
+      return res.json();
+    })
+    .then(datos => {
+      // Separar las notas en párrafos
+      const parrafosNotas = datos.notas
+        .split(". ")
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
 
-  <main>
-    <div class="perfil" id="datos">
-      <!-- Datos inyectados desde JS -->
-      <p>Cargando datos del niño...</p>
-    </div>
-  </main>
+      let html = `
+        <h2>🚨 Datos de ${datos.nombre}</h2>
+        <p><strong>Edad:</strong> ${datos.edad || "No especificado"} años</p>
+        <p><strong>Tipo de Sangre:</strong> ${datos.tipo_de_sangre || "No especificado"}</p>
+        <p><strong>Diagnóstico:</strong> ${datos.diagnostico || "No especificado"}</p>
+        <p><strong>Alergias:</strong> ${datos.alergias === "" ? "Ninguna" : datos.alergias}</p>
 
-  <footer>
-    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
-  </footer>
+        <p><strong>Contacto Principal:</strong></p>
+        <ul>
+          <li><strong>Nombre:</strong> ${datos.contacto1?.nombre || "No especificado"}</li>
+          <li><strong>Parentesco:</strong> ${datos.contacto1?.parentesco || "No especificado"}</li>
+          <li><strong>Teléfono:</strong> ${datos.contacto1?.telefono || "No especificado"}</li>
+        </ul>
+      `;
 
-  <!-- Script principal -->
-  <script src="script.js"></script>
+      // Mostrar contacto secundario si existe
+      if (Object.keys(datos.contacto2).length > 0 && 
+          (datos.contacto2.nombre || datos.contacto2.parentesco || datos.contacto2.telefono)) {
 
-  <!-- Lógica de perfil -->
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const nombre = urlParams.get("nino") || "david";
-
-    fetch(`data/${nombre}.json`)
-      .then(res => {
-        if (!res.ok) throw new Error("Niño no encontrado");
-        return res.json();
-      })
-      .then(datos => {
-        // Separar notas por punto
-        const parrafosNotas = datos.notas
-          .split(". ")
-          .map(p => p.trim())
-          .filter(p => p.length > 0);
-
-        // Generar HTML dinámico
-        let html = `
-          <h2>🚨 Datos de ${datos.nombre}</h2>
-          <p><strong>Edad:</strong> ${datos.edad} años</p>
-          <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
-          <p><strong>Alergias:</strong> ${datos.alergias === "" ? "Ninguna" : datos.alergias}</p>
-          
-          <p><strong>Contacto Principal:</strong></p>
+        html += `
+          <p><strong>Contacto Secundario:</strong></p>
           <ul>
-            <li><strong>Nombre:</strong> ${datos.contacto1?.nombre || "No registrado"}</li>
-            <li><strong>Parentesco:</strong> ${datos.contacto1?.parentesco || "No especificado"}</li>
-            <li><strong>Teléfono:</strong> ${datos.contacto1?.telefono || "No disponible"}</li>
+            <li><strong>Nombre:</strong> ${datos.contacto2.nombre || "No especificado"}</li>
+            <li><strong>Parentesco:</strong> ${datos.contacto2.parentesco || "No especificado"}</li>
+            <li><strong>Teléfono:</strong> ${datos.contacto2.telefono || "No especificado"}</li>
           </ul>
         `;
+      }
 
-        // Mostrar contacto secundario solo si tiene datos
-        if (datos.contacto2 && datos.contacto2.nombre && datos.contacto2.nombre.trim() !== "") {
-          html += `
-            <p><strong>Contacto Secundario:</strong></p>
-            <ul>
-              <li><strong>Nombre:</strong> ${datos.contacto2.nombre}</li>
-              <li><strong>Parentesco:</strong> ${datos.contacto2.parentesco}</li>
-              <li><strong>Teléfono:</strong> ${datos.contacto2.telefono}</li>
-            </ul>
-          `;
-        }
-
-        // Mostrar notas como párrafos independientes
-        html += `<p><strong>Notas importantes:</strong></p>`;
-        parrafosNotas.forEach(parrafo => {
-          html += `<p>${parrafo}.</p>`;
-        });
-
-        document.getElementById("datos").innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
-        console.error("Error al cargar datos:", err);
+      html += `<p><strong>Notas importantes:</strong></p>`;
+      parrafosNotas.forEach(parrafo => {
+        html += `<p>${parrafo}.</p>`;
       });
-  </script>
 
-</body>
-</html>
+      document.getElementById("datos").innerHTML = html;
+    })
+    .catch(err => {
+      document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
+      console.error("Error al cargar datos:", err);
+    });
+</script>

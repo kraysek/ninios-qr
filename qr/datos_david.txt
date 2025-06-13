@@ -1,10 +1,20 @@
-nombre: David Martínez Hernández
+# Ficha de registro - Proyecto QR - Niños Vulnerables
+
+nombre: David Martinez Hernandez
 edad: 14
-diagnostico: Padecimiento autismo típico
+diagnostico: Autismo tipico
 tipo_de_sangre: A positivo
 alergias: ninguna
-contacto1_nombre: Gerardo Martínez (Papá)
-contacto1_telefono: 55 19 60 51 15
-contacto2_nombre: Martha Martínez (Tía)
-contacto2_telefono: 55 22 68 96 17
-notas: Es muy alegre
+
+# Contacto 1 (obligatorio)
+contacto1_nombre: Gerando Martinez
+contacto1_parentesco: padre
+contacto1_telefono: 55 1960 5115
+
+# Contacto 2 (opcional)
+contacto2_nombre: Martha Martínez
+contacto2_parentesco: tia
+contacto2_telefono: 55 2268 9617
+
+# Notas importantes
+notas: espacio para otras cosas

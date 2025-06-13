@@ -1,0 +1,18 @@
+{
+    "nombre": "David Martinez Hernandez",
+    "edad": "14",
+    "diagnostico": "Autismo tipico",
+    "tipo_de_sangre": "A positivo",
+    "alergias": "ninguna",
+    "notas": "espacio para otras cosas",
+    "contacto1": {
+        "nombre": "Gerando Martinez",
+        "parentesco": "padre",
+        "telefono": "55 1960 5115"
+    },
+    "contacto2": {
+        "nombre": "Martha Martínez",
+        "parentesco": "tia",
+        "telefono": "55 2268 9617"
+    }
+}
