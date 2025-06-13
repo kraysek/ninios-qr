@@ -6,7 +6,7 @@
   <title>Perfil del Niño</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="light-mode">
+<body>
 
   <header>
     <h1><a href="index.html">Proyecto QR - Perfil del Niño</a></h1>
@@ -15,7 +15,7 @@
 
   <main>
     <div class="perfil" id="datos">
-      <!-- Datos inyectados desde script -->
+      <!-- Aquí se inyectan los datos -->
     </div>
   </main>
 
@@ -23,8 +23,10 @@
     ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
+  <!-- Script principal -->
   <script src="script.js" defer></script>
 
+  <!-- Lógica de carga de perfil -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get("nino") || "david";
@@ -35,13 +37,16 @@
         return res.json();
       })
       .then(datos => {
+        // Dividir notas en párrafos
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
           .filter(p => p.length > 0);
 
+        // Generar HTML dinámico
         let html = `
           <h2>🚨 Datos de ${datos.nombre}</h2>
+          <p><strong>Edad:</strong> ${datos.edad} años</p>
           <p><strong>Diagnóstico:</strong> ${datos.diagnostico}</p>
           <p><strong>Contacto:</strong></p>
           <ul>
@@ -49,6 +54,7 @@
             <li><strong>Parentesco:</strong> ${datos.contacto.parentesco}</li>
             <li><strong>Teléfono:</strong> ${datos.contacto.telefono}</li>
           </ul>
+          <p><strong>Notas:</strong></p>
         `;
 
         parrafosNotas.forEach(parrafo => {
