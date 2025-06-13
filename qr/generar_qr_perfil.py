@@ -4,6 +4,7 @@ import os
 
 DATA_DIR = "../data"
 QR_DIR = "."
+LISTA_JSON = os.path.join(DATA_DIR, "lista.json")
 
 def limpiar_nombre(nombre):
     return nombre.replace(" ", "_").lower()
@@ -15,13 +16,12 @@ def guardar_json(datos, nombre_archivo):
         json.dump(datos, f, indent=4, ensure_ascii=False)
 
 def actualizar_lista(nombre_real, nombre_archivo):
-    lista_path = os.path.join(DATA_DIR, "lista.json")
-
-    if not os.path.exists(lista_path):
-        with open(lista_path, "w", encoding="utf-8") as f:
+    # Crear o actualizar lista.json
+    if not os.path.exists(LISTA_JSON):
+        with open(LISTA_JSON, "w", encoding="utf-8") as f:
             json.dump([], f)
 
-    with open(lista_path, "r", encoding="utf-8") as f:
+    with open(LISTA_JSON, "r", encoding="utf-8") as f:
         try:
             lista = json.load(f)
         except json.JSONDecodeError:
@@ -33,7 +33,7 @@ def actualizar_lista(nombre_real, nombre_archivo):
             "archivo": nombre_archivo
         })
 
-    with open(lista_path, "w", encoding="utf-8") as f:
+    with open(LISTA_JSON, "w", encoding="utf-8") as f:
         json.dump(lista, f, indent=4, ensure_ascii=False)
 
 def generar_qr(nombre_nino):
@@ -68,7 +68,7 @@ def main():
     edad = datos.get("edad", "")
     diagnostico = datos.get("diagnostico", "")
     tipo_de_sangre = datos.get("tipo_de_sangre", "")
-    alergias = datos.get("alergias", "")
+    alergias = datos.get("alergias", "") or "Ninguna"
     notas = datos.get("notas", "")
 
     contacto1_nombre = datos.get("contacto1_nombre", "")
@@ -97,24 +97,26 @@ def main():
             "telefono": contacto2_telefono or ""
         }
 
-    datos_completos = {
+    perfil = {
         "nombre": nombre,
-        "edad": edad or "",
-        "diagnostico": diagnostico or "",
-        "tipo_de_sangre": tipo_de_sangre or "",
-        "alergias": alergias or "",
-        "notas": notas or "",
+        "edad": edad,
+        "diagnostico": diagnostico,
+        "tipo_de_sangre": tipo_de_sangre,
+        "alergias": alergias,
+        "notas": notas,
         "contacto1": contacto1,
         "contacto2": contacto2
     }
 
-    nombre_guardado = limpiar_nombre(nombre)
-    guardar_json(datos_completos, nombre_guardado)
+    nombre_guardado = limpiar_nombre(nombre.split(" ")[0])  # Usa el primer nombre como identificador 
+
+    guardar_json(perfil, nombre_guardado)
     generar_qr(nombre_guardado)
+    actualizar_lista(nombre, nombre_guardado)
 
     print("\n✅ El niño/a ha sido registrado exitosamente.")
     print(f"📁 Datos guardados en: ../data/{nombre_guardado}.json")
-    print(f"📌 Ahora aparecerá en el índice del sitio.")
+    print(f"📌 Ahora aparecerá en la lista del sitio web.")
 
 if __name__ == "__main__":
     main()
