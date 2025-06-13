@@ -1,34 +1,31 @@
-/* style.css */
 :root {
-  --color-light: #fcd5ff;
-  --color-dark: #2d3748;
-  --bg-color: #f0faf5; /* Verde claro (modo claro) */
-  --text-color: #2d3748; /* Gris azulado */
-  --accent-color: #38a169; /* Verde bosque */
-  --card-bg: #e8f9ef; /* Fondo de perfil más suave */
+  --color-light: #ffffff;
+  --color-dark: #2c2c2c;
+  --bg-color: #f0faf5;
+  --text-color: #2d3748;
+  --accent-color: #38a169;
+  --card-bg: #e8f9ef;
   --transition-speed: 0.3s;
   --font-size-base: 19px;
 }
 
 body.dark-mode {
-  --color-light: #2d3137; /* Vino medio */
+  --color-light: #2d3137;
   --color-dark: #f0f0f0;
-  --bg-color: #1b1e23; /* Fondo oscuro elegante */
-  --text-color: #e2e8f0; /* Texto claro en modo oscuro */
+  --bg-color: #1b1e23;
+  --text-color: #e2e8f0;
   --card-bg: #2d3137;
-  --accent-color: #d63939; /* Rojo vino intenso */
+  --accent-color: #d63939;
 }
 
-/* Estilos generales */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color var(--transition-speed) ease,
-              color var(--transition-speed) ease;
   font-size: var(--font-size-base);
   padding: 20px;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
 h1, h2, h3 {
@@ -40,15 +37,11 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: var(--accent-color);
+  color: white;
   padding: 15px 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
-}
-
-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
 }
 
 header h1 a {
@@ -56,25 +49,18 @@ header h1 a {
   text-decoration: none;
 }
 
-main {
-  max-width: 700px;
-  margin: auto;
+.perfil {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-footer {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #cbd5e0;
-}
-
-footer a {
-  color: var(--accent-color);
-  text-decoration: underline;
-}
-
-footer a:hover {
-  text-decoration: none;
+.parrafo {
+  line-height: 1.6;
+  margin-bottom: 1em;
 }
 
 .toggle-theme {
@@ -93,32 +79,6 @@ footer a:hover {
   padding: 4px;
 }
 
-.perfil {
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color var(--transition-speed) ease,
-              color var(--transition-speed) ease;
-}
-
-.perfil h2 {
-  margin-top: 0;
-}
-
-ul {
-  padding-left: 20px;
-}
-
-ul li {
-  margin-bottom: 6px;
-}
-
-p {
-  line-height: 1.6;
-}
-
 a {
   color: var(--accent-color);
   text-decoration: underline;
@@ -126,19 +86,4 @@ a {
 
 a:hover {
   text-decoration: none;
-}
-
-.parrafo {
-  margin-bottom: 1em;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 1.4rem;
-  }
-
-  .toggle-theme {
-    font-size: 1.1rem;
-  }
 }

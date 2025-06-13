@@ -4,7 +4,6 @@ import os
 
 DATA_DIR = "../data"
 QR_DIR = "."
-LISTA_JSON = os.path.join(DATA_DIR, "lista.json")
 
 def limpiar_nombre(nombre):
     return nombre.replace(" ", "_").lower()
@@ -16,11 +15,13 @@ def guardar_json(datos, nombre_archivo):
         json.dump(datos, f, indent=4, ensure_ascii=False)
 
 def actualizar_lista(nombre_real, nombre_archivo):
-    if not os.path.exists(LISTA_JSON):
-        with open(LISTA_JSON, 'w', encoding='utf-8') as f:
+    lista_path = os.path.join(DATA_DIR, "lista.json")
+
+    if not os.path.exists(lista_path):
+        with open(lista_path, "w", encoding="utf-8") as f:
             json.dump([], f)
 
-    with open(LISTA_JSON, "r", encoding="utf-8") as f:
+    with open(lista_path, "r", encoding="utf-8") as f:
         try:
             lista = json.load(f)
         except json.JSONDecodeError:
@@ -32,7 +33,7 @@ def actualizar_lista(nombre_real, nombre_archivo):
             "archivo": nombre_archivo
         })
 
-    with open(LISTA_JSON, "w", encoding="utf-8") as f:
+    with open(lista_path, "w", encoding="utf-8") as f:
         json.dump(lista, f, indent=4, ensure_ascii=False)
 
 def generar_qr(nombre_nino):
@@ -45,14 +46,12 @@ def generar_qr(nombre_nino):
 
 def leer_datos_desde_txt(archivo_txt):
     datos = {}
-    with open(archivo_txt, "r", encoding='utf-8') as f:
+    with open(archivo_txt, "r", encoding="utf-8") as f:
         for linea in f:
             linea = linea.strip()
             if ":" in linea and len(linea.split(":", 1)) == 2:
                 clave, valor = linea.split(":", 1)
-                clave = clave.strip()
-                valor = valor.strip()
-                datos[clave] = valor
+                datos[clave.strip()] = valor.strip()
     return datos
 
 def main():
@@ -65,7 +64,6 @@ def main():
 
     datos = leer_datos_desde_txt(archivo_txt)
 
-    # Leer todos los campos necesarios 
     nombre = datos.get("nombre", "")
     edad = datos.get("edad", "")
     diagnostico = datos.get("diagnostico", "")
@@ -110,10 +108,9 @@ def main():
         "contacto2": contacto2
     }
 
-    nombre_guardado = limpiar_nombre(nombre.split(" ")[0])  # Usa el primer nombre como identificador
+    nombre_guardado = limpiar_nombre(nombre)
     guardar_json(datos_completos, nombre_guardado)
     generar_qr(nombre_guardado)
-    actualizar_lista(nombre, nombre_guardado)
 
     print("\n✅ El niño/a ha sido registrado exitosamente.")
     print(f"📁 Datos guardados en: ../data/{nombre_guardado}.json")
