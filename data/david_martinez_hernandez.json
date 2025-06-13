@@ -1,0 +1,11 @@
+{
+    "nombre": "David Martinez Hernandez",
+    "edad": "14",
+    "diagnostico": "Autismo tipico",
+    "contacto": {
+        "nombre": "Gerardo Martinez",
+        "parentesco": "papa",
+        "telefono": "55 1960 5115"
+    },
+    "notas": "Sangre A positivo Martha Martinez 55 2268 9617"
+}
