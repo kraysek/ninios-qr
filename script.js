@@ -1,18 +1,21 @@
 // script.js
 
+/**
+ * Carga el tema guardado al iniciar
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
 
   if (savedTheme === "dark") {
     document.body.classList.add("dark-mode");
-  } else if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
   } else {
-    document.body.classList.add("dark-mode");
-    localStorage.setItem("theme", "dark");
+    document.body.classList.add("light-mode");
   }
 });
 
+/**
+ * Cambia entre tema claro y oscuro
+ */
 function toggleTheme() {
   document.body.classList.toggle("dark-mode");
   document.body.classList.toggle("light-mode");
