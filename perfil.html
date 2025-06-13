@@ -15,7 +15,6 @@
 
   <main>
     <div class="perfil" id="datos">
-      <!-- Datos inyectados desde script -->
       <p>Cargando datos del niño...</p>
     </div>
   </main>
@@ -24,10 +23,8 @@
     ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
-  <!-- Script principal -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 
-  <!-- Lógica de carga de perfil -->
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const nombre = urlParams.get("nino") || "david";
@@ -38,7 +35,6 @@
         return res.json();
       })
       .then(datos => {
-        // Dividir notas en párrafos
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
@@ -70,7 +66,7 @@
           `;
         }
 
-        html += "<p><strong>Notas importantes:</strong></p>";
+        html += `<p><strong>Notas importantes:</strong></p>`;
         parrafosNotas.forEach(parrafo => {
           html += `<p>${parrafo}.</p>`;
         });
