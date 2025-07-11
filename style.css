@@ -1,3 +1,4 @@
+/* Variables globales */
 :root {
   --bg-color: #f0faf5; /* Verde claro */
   --text-color: #2d3748; /* Gris azulado - fácil de leer en fondo claro */
@@ -7,9 +8,10 @@
   --font-size-base: 19px;
 }
 
+/* Tema oscuro */
 body.dark-mode {
-  --bg-color: #1b1e23; /* Fondo vino oscuro */
-  --text-color: #e2e8f0; /* Blanco azulado - fácil de leer en oscuro */
+  --bg-color: #1b1e23; /* Fondo oscuro */
+  --text-color: #e2e8f0; /* Texto claro */
   --accent-color: #d63939; /* Rojo vino intenso */
   --card-bg: #2d3137;
 }
@@ -25,13 +27,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Header mejorado */
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: var(--accent-color);
-  color: white; /* Texto blanco en el header */
+  color: white;
   padding: 15px 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -48,12 +50,14 @@ header h1 a {
   text-decoration: none;
 }
 
+/* Contenido principal */
 main {
   max-width: 700px;
   margin: auto;
   width: 100%;
 }
 
+/* Footer */
 footer {
   margin-top: 40px;
   text-align: center;
@@ -87,7 +91,7 @@ footer a:hover {
   padding: 4px;
 }
 
-/* Perfil del niño */
+/* Tarjeta de perfil */
 .perfil {
   background-color: var(--card-bg);
   color: var(--text-color);
@@ -129,20 +133,22 @@ a:hover {
     font-size: 1.1rem;
   }
 }
+
+/* Botón de obtener ubicación */
 #obtenerUbicacion {
-  display: block; /* Para poder centrarlo con margin: 0 auto */
+  display: block;
   width: 70%;
   padding: 15px;
-  margin: 20px auto; /* Centrado horizontal */
-  background-color: var(--accent-color); /* Usa el color verde definido */
+  margin: 20px auto;
+  background-color: var(--accent-color);
   color: white;
   border: none;
-  border-radius: 12px; /* Bordes redondeados */
+  border-radius: 12px;
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 #obtenerUbicacion:hover {
-  background-color: var(--button-hover); /* Usa el color de hover definido */
+  background-color: var(--button-hover);
 }
