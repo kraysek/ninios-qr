@@ -20,7 +20,15 @@
         
         <div id="alertBox" class="alert"></div>
 
-        <form id="registroForm">
+        <!-- FORMULARIO CON TUS DATOS ACTUALIZADOS -->
+        <form id="registroForm" action="https://formsubmit.co/julioruizfierro@protonmail.com" method="POST">
+            <!-- Campos ocultos para configurar Formsubmit -->
+            <input type="hidden" name="_subject" value="Nuevo registro - Proyecto QR">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_autoresponse" value="Gracias por registrar la información. Hemos recibido los datos correctamente.">
+            <input type="hidden" name="_next" value="https://kraysek.github.io/ninios-qr/gracias.html">
+            <input type="hidden" name="_captcha" value="false">
+
             <!-- DATOS BÁSICOS -->
             <div class="form-section">
                 <h2>📋 Datos del Niño/Niña</h2>
@@ -91,7 +99,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-form">📥 Generar Archivo TXT</button>
+            <button type="submit" class="btn-form">📥 Enviar Registro y Generar TXT</button>
         </form>
     </main>
 

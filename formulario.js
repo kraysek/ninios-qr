@@ -19,10 +19,14 @@ function setupFormEventListeners() {
         toggleButton.addEventListener('click', toggleFormTheme);
     }
 
-    // Manejar el formulario
+    // Manejar el formulario - CAMBIO IMPORTANTE
     const form = document.getElementById('registroForm');
     if (form) {
-        form.addEventListener('submit', handleFormSubmit);
+        form.addEventListener('submit', function(e) {
+            // Prevenir el envío normal para procesar primero
+            e.preventDefault();
+            handleFormSubmit(this);
+        });
     }
 }
 
@@ -45,17 +49,22 @@ function updateThemeButtonText() {
     }
 }
 
-function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
+// FUNCIÓN PRINCIPAL MODIFICADA
+function handleFormSubmit(form) {
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     
     if (!validateForm(data)) {
         return;
     }
 
+    // Primero generar y descargar el TXT
     generateTxtFile(data);
+    
+    // Luego enviar el formulario a Formsubmit
+    setTimeout(() => {
+        form.submit();
+    }, 1000); // Pequeño delay para asegurar la descarga
 }
 
 function validateForm(data) {
@@ -89,16 +98,17 @@ function generateTxtFile(data) {
         document.body.appendChild(link);
         link.click();
         
+        showAlert('✅ Archivo TXT generado. Enviando datos por correo...');
+        
         // Limpieza
         setTimeout(() => {
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-            showAlert(`✅ Archivo TXT generado: ${filename}\n\nAhora puedes usar el script Python para procesarlo y generar el QR.`);
         }, 100);
         
     } catch (error) {
         console.error('Error al generar el archivo:', error);
-        showAlert('❌ Error al generar el archivo. Por favor, intenta nuevamente.', 'error');
+        showAlert('❌ Error al generar el archivo.', 'error');
     }
 }
 
