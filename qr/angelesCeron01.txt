@@ -17,5 +17,4 @@ contacto2_parentesco:
 contacto2_telefono:  55 34959403
 
 # Notas importantes
-notas: IMSS 01927005452
-Tipo de Sangre: O- Con variante  c(+)  e(+)
+notas: IMSS 01927005452 / Tipo de Sangre: O- Con variante  c(+)  e(+)
