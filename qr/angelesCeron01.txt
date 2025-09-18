@@ -1,0 +1,20 @@
+# Ficha de registro - Proyecto QR - Niños Vulnerables
+
+nombre: Maria de los Angeles Ceron  Perez 
+edad: 
+diagnostico: Autismo tipico
+tipo_de_sangre: O-
+alergias: ninguna
+
+# Contacto 1 (obligatorio)
+contacto1_nombre: Raúl Salas Arellano
+contacto1_parentesco: 
+contacto1_telefono: 55 30197637
+
+# Contacto 2 (opcional)
+contacto2_nombre: Hortensia Ceron Perez
+contacto2_parentesco: 
+contacto2_telefono:  55 34959403
+
+# Notas importantes
+notas: IMSS 01927005452
