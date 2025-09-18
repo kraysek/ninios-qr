@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Fichas - Proyecto QR Niños</title>
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-secondary: #64748b;
+            --color-success: #059669;
+            --color-danger: #dc2626;
+            --color-background: #f8fafc;
+            --color-card: #ffffff;
+            --color-border: #e2e8f0;
+            --color-text: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--color-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--color-border);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--color-border);
+        }
+        
+        .header h1 {
+            color: var(--color-primary);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: var(--color-secondary);
+            font-size: 1.1em;
+        }
+        
+        .form-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .form-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--color-danger);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .note {
+            font-size: 0.9em;
+            color: var(--color-secondary);
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--color-primary), #1e40af);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        
+        .github-info {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background: var(--color-background);
+            border-radius: 8px;
+            border: 1px dashed var(--color-border);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            input, textarea, select {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👶 Generador de Fichas - Proyecto QR</h1>
+            <p>Genera archivos TXT para el registro de niños vulnerables</p>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="registroForm">
+            <!-- DATOS BÁSICOS -->
+            <div class="form-section">
+                <h2>📋 Datos del Niño/Niña</h2>
+                <div class="form-group">
+                    <label for="nombre" class="required">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Ana García López">
+                </div>
+                <div class="form-group">
+                    <label for="edad" class="required">Edad</label>
+                    <input type="text" id="edad" name="edad" required placeholder="Ej: 7 años">
+                </div>
+                <div class="form-group">
+                    <label for="diagnostico" class="required">Diagnóstico/Condición</label>
+                    <input type="text" id="diagnostico" name="diagnostico" required placeholder="Ej: Diabetes tipo 1">
+                </div>
+                <div class="form-group">
+                    <label for="tipo_de_sangre" class="required">Tipo de sangre</label>
+                    <input type="text" id="tipo_de_sangre" name="tipo_de_sangre" required placeholder="Ej: A+">
+                </div>
+                <div class="form-group">
+                    <label for="alergias">Alergias</label>
+                    <input type="text" id="alergias" name="alergias" placeholder="Ej: Penicilina, polen" value="Ninguna">
+                    <div class="note">Dejar en "Ninguna" si no aplica</div>
+                </div>
+            </div>
+
+            <!-- CONTACTO 1 -->
+            <div class="form-section">
+                <h2>📞 Contacto de Emergencia 1 (Obligatorio)</h2>
+                <div class="form-group">
+                    <label for="contacto1_nombre" class="required">Nombre</label>
+                    <input type="text" id="contacto1_nombre" name="contacto1_nombre" required placeholder="Ej: Carlos García">
+                </div>
+                <div class="form-group">
+                    <label for="contacto1_parentesco" class="required">Parentesco</label>
+                    <input type="text" id="contacto1_parentesco" name="contacto1_parentesco" required placeholder="Ej: Padre, Madre, Tutor">
+                </div>
+                <div class="form-group">
+                    <label for="contacto1_telefono" class="required">Teléfono</label>
+                    <input type="tel" id="contacto1_telefono" name="contacto1_telefono" required placeholder="Ej: 555-123-4567">
+                </div>
+            </div>
+
+            <!-- CONTACTO 2 -->
+            <div class="form-section">
+                <h2>📞 Contacto de Emergencia 2 (Opcional)</h2>
+                <div class="form-group">
+                    <label for="contacto2_nombre">Nombre</label>
+                    <input type="text" id="contacto2_nombre" name="contacto2_nombre" placeholder="Ej: María López">
+                </div>
+                <div class="form-group">
+                    <label for="contacto2_parentesco">Parentesco</label>
+                    <input type="text" id="contacto2_parentesco" name="contacto2_parentesco" placeholder="Ej: Madre, Abuela">
+                </div>
+                <div class="form-group">
+                    <label for="contacto2_telefono">Teléfono</label>
+                    <input type="tel" id="contacto2_telefono" name="contacto2_telefono" placeholder="Ej: 555-987-6543">
+                </div>
+            </div>
+
+            <!-- NOTAS -->
+            <div class="form-section">
+                <h2>📝 Notas importantes</h2>
+                <div class="form-group">
+                    <label for="notas">Información adicional</label>
+                    <textarea id="notas" name="notas" placeholder="Información relevante sobre medicamentos, rutinas, comportamientos, etc."></textarea>
+                    <div class="note">Ej: Requiere insulina cada 4 horas, alergia a alimentos específicos, etc.</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">📥 Generar Archivo TXT</button>
+        </form>
+
+        <div class="github-info">
+            <p>🔄 Este formulario genera archivos para el <strong>Proyecto QR Niños Vulnerables</strong></p>
+            <p>⭐ Alojado en GitHub Pages - Sin restricciones de WordPress</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registroForm');
+            const alertBox = document.getElementById('alertBox');
+            
+            function showAlert(message, type = 'success') {
+                alertBox.textContent = message;
+                alertBox.className = type === 'success' ? 'alert alert-success' : 'alert alert-error';
+                alertBox.style.display = 'block';
+                
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000);
+            }
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Obtener valores del formulario
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    // Validación de campos obligatorios
+                    const camposObligatorios = [
+                        'nombre', 'edad', 'diagnostico', 'tipo_de_sangre',
+                        'contacto1_nombre', 'contacto1_parentesco', 'contacto1_telefono'
+                    ];
+                    
+                    for (let campo of camposObligatorios) {
+                        if (!data[campo] || data[campo].trim() === '') {
+                            showAlert('❌ Por favor, completa todos los campos obligatorios marcados con *.', 'error');
+                            return;
+                        }
+                    }
+
+                    // Crear contenido del archivo TXT
+                    let contenido = `# Ficha de registro - Proyecto QR - Niños Vulnerables\n\n`;
+                    contenido += `nombre: ${data.nombre}\n`;
+                    contenido += `edad: ${data.edad}\n`;
+                    contenido += `diagnostico: ${data.diagnostico}\n`;
+                    contenido += `tipo_de_sangre: ${data.tipo_de_sangre}\n`;
+                    contenido += `alergias: ${data.alergias || 'Ninguna'}\n\n`;
+                    contenido += `# Contacto 1 (obligatorio)\n`;
+                    contenido += `contacto1_nombre: ${data.contacto1_nombre}\n`;
+                    contenido += `contacto1_parentesco: ${data.contacto1_parentesco}\n`;
+                    contenido += `contacto1_telefono: ${data.contacto1_telefono}\n\n`;
+                    
+                    if (data.contacto2_nombre || data.contacto2_parentesco || data.contacto2_telefono) {
+                        contenido += `# Contacto 2 (opcional)\n`;
+                        contenido += `contacto2_nombre: ${data.contacto2_nombre || ''}\n`;
+                        contenido += `contacto2_parentesco: ${data.contacto2_parentesco || ''}\n`;
+                        contenido += `contacto2_telefono: ${data.contacto2_telefono || ''}\n\n`;
+                    }
+                    
+                    contenido += `# Notas importantes\n`;
+                    contenido += `notas: ${data.notas || 'Ninguna'}\n`;
+                    
+                    // Crear y descargar archivo
+                    const filename = `${data.nombre.toLowerCase().replace(/\s+/g, '_')}.txt`;
+                    
+                    try {
+                        const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        
+                        link.href = url;
+                        link.download = filename;
+                        link.style.display = 'none';
+                        
+                        document.body.appendChild(link);
+                        link.click();
+                        
+                        // Limpieza
+                        setTimeout(() => {
+                            document.body.removeChild(link);
+                            window.URL.revokeObjectURL(url);
+                            showAlert(`✅ Archivo TXT generado: ${filename}\n\nAhora puedes usar el script Python para procesarlo y generar el QR.`);
+                        }, 100);
+                        
+                    } catch (error) {
+                        console.error('Error al generar el archivo:', error);
+                        showAlert('❌ Error al generar el archivo. Por favor, intenta nuevamente.', 'error');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
