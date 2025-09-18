@@ -1,18 +1,18 @@
 /* Variables globales */
 :root {
-  --bg-color: #f0faf5; /* Verde claro */
-  --text-color: #2d3748; /* Gris azulado - fácil de leer en fondo claro */
-  --accent-color: #38a169; /* Verde bosque */
+  --bg-color: #f0faf5;
+  --text-color: #2d3748;
+  --accent-color: #38a169;
   --card-bg: #e8f9ef;
-  --button-hover: #a3d5c0; /* Verde pastel para hover */
+  --button-hover: #a3d5c0;
   --font-size-base: 19px;
 }
 
 /* Tema oscuro */
 body.dark-mode {
-  --bg-color: #1b1e23; /* Fondo oscuro */
-  --text-color: #e2e8f0; /* Texto claro */
-  --accent-color: #d63939; /* Rojo vino intenso */
+  --bg-color: #1b1e23;
+  --text-color: #e2e8f0;
+  --accent-color: #d63939;
   --card-bg: #2d3137;
 }
 
@@ -123,15 +123,32 @@ a:hover {
   text-decoration: none;
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 1.4rem;
-  }
+/* Botón de formulario */
+.form-button-container {
+  text-align: center;
+  margin: 40px 0;
+}
 
-  .toggle-theme {
-    font-size: 1.1rem;
-  }
+.btn-formulario {
+  display: inline-block;
+  background: var(--accent-color);
+  color: white;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-formulario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  background: var(--button-hover);
+  color: var(--text-color);
 }
 
 /* Botón de obtener ubicación */
@@ -151,4 +168,20 @@ a:hover {
 
 #obtenerUbicacion:hover {
   background-color: var(--button-hover);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  .toggle-theme {
+    font-size: 1.1rem;
+  }
+
+  .btn-formulario {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
 }

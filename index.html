@@ -10,7 +10,7 @@
 
   <header>
     <h1><a href="index.html">Proyecto QR - Niños Vulnerables</a></h1>
-    <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">
+    <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">
       ☀️ / 🌙
     </button>
   </header>
@@ -35,32 +35,18 @@
 
     <h2>📌 Niños Registrados</h2>
     <ul id="listaNinos"></ul>
+
+    <div class="form-button-container">
+      <a href="formulario.html" class="btn-formulario">
+        📋 Llenar Formulario de Registro
+      </a>
+    </div>
   </main>
 
   <footer>
-    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/"  target="_blank">Gama Digital Studio</a></strong>
+    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/" target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
-  <!-- Scripts -->
-  <script src="script.js" defer></script>
-
-  <script>
-    // Cargar lista dinámica desde data/lista.json
-    fetch('data/lista.json')
-      .then(res => res.json())
-      .then(lista => {
-        const listaEl = document.getElementById("listaNinos");
-        lista.forEach(nino => {
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="perfil.html?nino=${nino.archivo}">${nino.nombre}</a>`;
-          listaEl.appendChild(li);
-        });
-      })
-      .catch(err => {
-        console.error("Error al cargar la lista:", err);
-        document.getElementById("listaNinos").innerHTML = "<li>Error al cargar los niños.</li>";
-      });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
