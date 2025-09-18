@@ -1,46 +1,125 @@
-<!-- CONTACTO 1 -->
-<div class="form-section">
-    <h2>📞 Contacto de Emergencia 1 (Obligatorio)</h2>
-    <div class="form-group">
-        <label for="contacto1_nombre" class="required">Nombre</label>
-        <input type="text" id="contacto1_nombre" name="contacto1_nombre" required placeholder="Ej: Carlos García">
-    </div>
-    <div class="form-group">
-        <label for="contacto1_parentesco" class="required">Parentesco</label>
-        <input type="text" id="contacto1_parentesco" name="contacto1_parentesco" required placeholder="Ej: Padre, Madre, Tutor">
-    </div>
-    <div class="form-group">
-        <label for="contacto1_telefono" class="required">Teléfono (10 dígitos)</label>
-        <input type="tel" id="contacto1_telefono" name="contacto1_telefono" 
-               pattern="[0-9]{10}" 
-               maxlength="10"
-               oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
-               title="Por favor ingresa exactamente 10 dígitos numéricos"
-               required 
-               placeholder="Ej: 5551234567">
-        <div class="note">Solo números, sin espacios ni guiones. Ej: 5551234567</div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro - Proyecto QR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
 
-<!-- CONTACTO 2 -->
-<div class="form-section">
-    <h2>📞 Contacto de Emergencia 2 (Opcional)</h2>
-    <div class="form-group">
-        <label for="contacto2_nombre">Nombre</label>
-        <input type="text" id="contacto2_nombre" name="contacto2_nombre" placeholder="Ej: María López">
-    </div>
-    <div class="form-group">
-        <label for="contacto2_parentesco">Parentesco</label>
-        <input type="text" id="contacto2_parentesco" name="contacto2_parentesco" placeholder="Ej: Madre, Abuela">
-    </div>
-    <div class="form-group">
-        <label for="contacto2_telefono">Teléfono (10 dígitos)</label>
-        <input type="tel" id="contacto2_telefono" name="contacto2_telefono" 
-               pattern="[0-9]{10}"
-               maxlength="10"
-               oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
-               title="Por favor ingresa exactamente 10 dígitos numéricos"
-               placeholder="Ej: 5559876543">
-        <div class="note">Solo números, sin espacios ni guiones. Ej: 5559876543</div>
-    </div>
-</div>
+    <header>
+        <h1><a href="index.html">Formulario de Registro - Niños Vulnerables</a></h1>
+        <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">
+            ☀️ / 🌙
+        </button>
+    </header>
+
+    <main>
+        <a href="index.html" class="back-button">← Volver al Inicio</a>
+        
+        <div id="alertBox" class="alert"></div>
+
+        <form id="registroForm" action="https://formsubmit.co/julioruizfierro@protonmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Nuevo registro - Proyecto QR">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_autoresponse" value="Gracias por registrar la información. Hemos recibido los datos correctamente.">
+            <input type="hidden" name="_next" value="https://kraysek.github.io/ninios-qr/gracias.html">
+            <input type="hidden" name="_captcha" value="false">
+
+            <!-- DATOS BÁSICOS -->
+            <div class="form-section">
+                <h2>📋 Datos del Niño/Niña</h2>
+                <div class="form-group">
+                    <label for="nombre" class="required">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Ana García López">
+                </div>
+                <div class="form-group">
+                    <label for="edad" class="required">Edad</label>
+                    <input type="text" id="edad" name="edad" required placeholder="Ej: 7 años">
+                </div>
+                <div class="form-group">
+                    <label for="diagnostico" class="required">Diagnóstico/Condición</label>
+                    <input type="text" id="diagnostico" name="diagnostico" required placeholder="Ej: Diabetes tipo 1">
+                </div>
+                <div class="form-group">
+                    <label for="tipo_de_sangre" class="required">Tipo de sangre</label>
+                    <input type="text" id="tipo_de_sangre" name="tipo_de_sangre" required placeholder="Ej: A+">
+                </div>
+                <div class="form-group">
+                    <label for="alergias">Alergias</label>
+                    <input type="text" id="alergias" name="alergias" placeholder="Ej: Penicilina, polen" value="Ninguna">
+                    <div class="note">Dejar en "Ninguna" si no aplica</div>
+                </div>
+            </div>
+
+            <!-- CONTACTO 1 -->
+            <div class="form-section">
+                <h2>📞 Contacto de Emergencia 1 (Obligatorio)</h2>
+                <div class="form-group">
+                    <label for="contacto1_nombre" class="required">Nombre</label>
+                    <input type="text" id="contacto1_nombre" name="contacto1_nombre" required placeholder="Ej: Carlos García">
+                </div>
+                <div class="form-group">
+                    <label for="contacto1_parentesco" class="required">Parentesco</label>
+                    <input type="text" id="contacto1_parentesco" name="contacto1_parentesco" required placeholder="Ej: Padre, Madre, Tutor">
+                </div>
+                <div class="form-group">
+                    <label for="contacto1_telefono" class="required">Teléfono (10 dígitos)</label>
+                    <input type="tel" id="contacto1_telefono" name="contacto1_telefono" 
+                           pattern="[0-9]{10}" 
+                           maxlength="10"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+                           title="Por favor ingresa exactamente 10 dígitos numéricos"
+                           required 
+                           placeholder="Ej: 5551234567">
+                    <div class="note">Solo números, sin espacios ni guiones. Ej: 5551234567</div>
+                    <div class="telefono-error">❌ Debe tener exactamente 10 dígitos</div>
+                </div>
+            </div>
+
+            <!-- CONTACTO 2 -->
+            <div class="form-section">
+                <h2>📞 Contacto de Emergencia 2 (Opcional)</h2>
+                <div class="form-group">
+                    <label for="contacto2_nombre">Nombre</label>
+                    <input type="text" id="contacto2_nombre" name="contacto2_nombre" placeholder="Ej: María López">
+                </div>
+                <div class="form-group">
+                    <label for="contacto2_parentesco">Parentesco</label>
+                    <input type="text" id="contacto2_parentesco" name="contacto2_parentesco" placeholder="Ej: Madre, Abuela">
+                </div>
+                <div class="form-group">
+                    <label for="contacto2_telefono">Teléfono (10 dígitos)</label>
+                    <input type="tel" id="contacto2_telefono" name="contacto2_telefono" 
+                           pattern="[0-9]{10}"
+                           maxlength="10"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+                           title="Por favor ingresa exactamente 10 dígitos numéricos"
+                           placeholder="Ej: 5559876543">
+                    <div class="note">Solo números, sin espacios ni guiones. Ej: 5559876543</div>
+                    <div class="telefono-error">❌ Debe tener exactamente 10 dígitos</div>
+                </div>
+            </div>
+
+            <!-- NOTAS -->
+            <div class="form-section">
+                <h2>📝 Notas importantes</h2>
+                <div class="form-group">
+                    <label for="notas">Información adicional</label>
+                    <textarea id="notas" name="notas" placeholder="Información relevante sobre medicamentos, rutinas, comportamientos, etc."></textarea>
+                    <div class="note">Ej: Requiere insulina cada 4 horas, alergia a alimentos específicos, etc.</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-form">📥 Enviar Registro y Generar TXT</button>
+        </form>
+    </main>
+
+    <footer>
+        ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/" target="_blank">Gama Digital Studio</a></strong>
+    </footer>
+
+    <script src="formulario.js"></script>
+</body>
+</html>

@@ -170,6 +170,136 @@ a:hover {
   background-color: var(--button-hover);
 }
 
+/* Estilos para el formulario */
+.form-section {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.form-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.required::after {
+  content: " *";
+  color: #dc2626;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--card-bg);
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.note {
+  font-size: 0.9em;
+  color: var(--text-color);
+  margin-top: 5px;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.btn-form {
+  background: linear-gradient(135deg, var(--accent-color), #1e40af);
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-form:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  display: none;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para validación de teléfono */
+input:valid {
+  border-color: var(--accent-color);
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+.telefono-error {
+  color: #e53e3e;
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: none;
+}
+
+input:invalid:not(:placeholder-shown) + .note + .telefono-error {
+  display: block;
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
   header h1 {
@@ -184,26 +314,12 @@ a:hover {
     padding: 12px 24px;
     font-size: 1rem;
   }
-}
 
-/* Estilos para campos válidos/inválidos */
-input:valid {
-    border-color: var(--accent-color);
-}
+  .form-section {
+    padding: 15px;
+  }
 
-input:invalid:not(:placeholder-shown) {
-    border-color: #e53e3e;
-    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
-}
-
-/* Mensaje de error específico para teléfono */
-.telefono-error {
-    color: #e53e3e;
-    font-size: 0.9em;
-    margin-top: 5px;
-    display: none;
-}
-
-input:invalid:not(:placeholder-shown) + .telefono-error {
-    display: block;
+  input, textarea {
+    padding: 10px;
+  }
 }
