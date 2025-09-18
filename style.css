@@ -185,3 +185,25 @@ a:hover {
     font-size: 1rem;
   }
 }
+
+/* Estilos para campos válidos/inválidos */
+input:valid {
+    border-color: var(--accent-color);
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #e53e3e;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+/* Mensaje de error específico para teléfono */
+.telefono-error {
+    color: #e53e3e;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+}
+
+input:invalid:not(:placeholder-shown) + .telefono-error {
+    display: block;
+}
