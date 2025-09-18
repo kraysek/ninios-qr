@@ -1,0 +1,15 @@
+# Ficha de registro - Proyecto QR - Niños Vulnerables
+
+nombre: Armando del Valle Beamonte
+edad: 83
+diagnostico: Cancer tratado
+tipo_de_sangre: O+
+alergias: N/A
+
+# Contacto 1 (obligatorio)
+contacto1_nombre: Erick del Valle Vidaña
+contacto1_parentesco: hijo
+contacto1_telefono: 5519513415
+
+# Notas importantes
+notas: Ninguna
