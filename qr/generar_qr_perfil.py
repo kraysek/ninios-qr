@@ -107,7 +107,7 @@ def main():
             "telefono": campos['contacto2_telefono']
         }
 
-    nombre_guardado = limpiar_nombre(campos['nombre'].split(" ")[0])
+    nombre_guardado = limpiar_nombre(campos['nombre'])
 
     guardar_json(perfil, nombre_guardado)
     generar_qr(campos['nombre'], campos['tipo_atencion'])
