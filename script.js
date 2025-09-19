@@ -54,9 +54,9 @@ function updateThemeButtonText() {
     }
 }
 
-// Cargar lista de niños desde data/lista.json
+// Cargar lista de personas desde data/lista.json
 function loadListaNinos() {
-    const listaEl = document.getElementById("listaNinos");
+    const listaEl = document.getElementById("listaPersonas");
     if (!listaEl) return;
 
     fetch('data/lista.json')
@@ -68,20 +68,20 @@ function loadListaNinos() {
         })
         .then(lista => {
             if (Array.isArray(lista)) {
-                lista.forEach(nino => {
+                lista.forEach(persona => {
                     const li = document.createElement("li");
-                    li.innerHTML = `<a href="perfil.html?nino=${nino.archivo}">${nino.nombre}</a>`;
+                    li.innerHTML = `<a href="perfil.html?persona=${persona.archivo}">${persona.nombre}</a>`;
                     listaEl.appendChild(li);
                 });
                 
                 if (lista.length === 0) {
-                    listaEl.innerHTML = "<li>No hay niños registrados todavía.</li>";
+                    listaEl.innerHTML = "<li>No hay personas registradas todavía.</li>";
                 }
             }
         })
         .catch(err => {
             console.error("Error al cargar la lista:", err);
-            listaEl.innerHTML = "<li>No hay niños registrados todavía.</li>";
+            listaEl.innerHTML = "<li>No hay personas registradas todavía.</li>";
         });
 }
 
@@ -148,4 +148,15 @@ function handleGeolocation() {
             maximumAge: 0
         }
     );
+}
+
+// Función para cargar perfil específico (usada en perfil.html)
+function cargarPerfilEspecifico(nombrePersona) {
+    if (!nombrePersona) return;
+    
+    return fetch(`data/${nombrePersona}.json`)
+        .then(res => {
+            if (!res.ok) throw new Error("Persona no encontrada");
+            return res.json();
+        });
 }
