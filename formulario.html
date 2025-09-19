@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Registro - Proyecto QR</title>
+    <title>Registro - QR Angel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-mode">
 
     <header>
-        <h1><a href="index.html">Formulario de Registro - Niños Vulnerables</a></h1>
+        <h1><a href="index.html">QR Angel - Protección Digital</a></h1>
         <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">
             ☀️ / 🌙
         </button>
@@ -21,26 +21,37 @@
         <div id="alertBox" class="alert"></div>
 
         <form id="registroForm" action="https://formsubmit.co/julioruizfierro@protonmail.com" method="POST">
-            <input type="hidden" name="_subject" value="Nuevo registro - Proyecto QR">
+            <input type="hidden" name="_subject" value="Nuevo registro - QR Angel">
             <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_autoresponse" value="Gracias por registrar la información. Hemos recibido los datos correctamente.">
+            <input type="hidden" name="_autoresponse" value="Gracias por registrar la información en QR Angel. Hemos recibido los datos correctamente.">
             <input type="hidden" name="_next" value="https://kraysek.github.io/ninios-qr/gracias.html">
             <input type="hidden" name="_captcha" value="false">
 
             <!-- DATOS BÁSICOS -->
             <div class="form-section">
-                <h2>📋 Datos del Niño/Niña</h2>
+                <h2>👤 Datos de la Persona</h2>
                 <div class="form-group">
                     <label for="nombre" class="required">Nombre completo</label>
                     <input type="text" id="nombre" name="nombre" required placeholder="Ej: Ana García López">
                 </div>
                 <div class="form-group">
                     <label for="edad" class="required">Edad</label>
-                    <input type="text" id="edad" name="edad" required placeholder="Ej: 7 años">
+                    <input type="text" id="edad" name="edad" required placeholder="Ej: 7 años o 75 años">
                 </div>
                 <div class="form-group">
-                    <label for="diagnostico" class="required">Diagnóstico/Condición</label>
-                    <input type="text" id="diagnostico" name="diagnostico" required placeholder="Ej: Diabetes tipo 1">
+                    <label for="tipo_persona" class="required">Tipo de atención</label>
+                    <select id="tipo_persona" name="tipo_persona" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="niño">Niño/Niña</option>
+                        <option value="adulto_mayor">Adulto Mayor</option>
+                        <option value="alzheimer">Persona con Alzheimer</option>
+                        <option value="discapacidad">Persona con Discapacidad</option>
+                        <option value="otro">Otra condición especial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diagnostico" class="required">Condición o diagnóstico</label>
+                    <input type="text" id="diagnostico" name="diagnostico" required placeholder="Ej: Autismo, Alzheimer, Diabetes, etc.">
                 </div>
                 <div class="form-group">
                     <label for="tipo_de_sangre" class="required">Tipo de sangre</label>
@@ -62,7 +73,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contacto1_parentesco" class="required">Parentesco</label>
-                    <input type="text" id="contacto1_parentesco" name="contacto1_parentesco" required placeholder="Ej: Padre, Madre, Tutor">
+                    <input type="text" id="contacto1_parentesco" name="contacto1_parentesco" required placeholder="Ej: Padre, Madre, Hijo, Cuidador">
                 </div>
                 <div class="form-group">
                     <label for="contacto1_telefono" class="required">Teléfono (10 dígitos)</label>
@@ -87,7 +98,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contacto2_parentesco">Parentesco</label>
-                    <input type="text" id="contacto2_parentesco" name="contacto2_parentesco" placeholder="Ej: Madre, Abuela">
+                    <input type="text" id="contacto2_parentesco" name="contacto2_parentesco" placeholder="Ej: Madre, Abuela, Cuidadora">
                 </div>
                 <div class="form-group">
                     <label for="contacto2_telefono">Teléfono (10 dígitos)</label>
@@ -104,15 +115,15 @@
 
             <!-- NOTAS -->
             <div class="form-section">
-                <h2>📝 Notas importantes</h2>
+                <h2>📝 Información importante</h2>
                 <div class="form-group">
                     <label for="notas">Información adicional</label>
-                    <textarea id="notas" name="notas" placeholder="Información relevante sobre medicamentos, rutinas, comportamientos, etc."></textarea>
-                    <div class="note">Ej: Requiere insulina cada 4 horas, alergia a alimentos específicos, etc.</div>
+                    <textarea id="notas" name="notas" placeholder="Información relevante sobre medicamentos, rutinas, comportamientos, necesidades especiales, etc."></textarea>
+                    <div class="note">Ej: Requiere insulina cada 4 horas, no verbal, usa silla de ruedas, alergia a alimentos, etc.</div>
                 </div>
             </div>
 
-            <button type="submit" class="btn-form">📥 Enviar Registro y Generar TXT</button>
+            <button type="submit" class="btn-form">👼 Crear QR Angel</button>
         </form>
     </main>
 

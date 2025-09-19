@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Proyecto QR - Niños Vulnerables</title>
+  <title>QR Angel - Protección Digital</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark-mode">
 
   <header>
-    <h1><a href="index.html">Proyecto QR - Niños Vulnerables</a></h1>
+    <h1><a href="index.html">QR Angel - Protección Digital</a></h1>
     <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">
       ☀️ / 🌙
     </button>
@@ -17,28 +17,29 @@
 
   <main>
     <p class="parrafo">
-      Este es un proyecto creado con el objetivo de ayudar a personas en situaciones de vulnerabilidad.
+      QR Angel es un proyecto creado para brindar protección digital a personas que requieren cuidado especial.
     </p>
 
     <p class="parrafo">
-      Nuestra idea es generar códigos QR que permitan identificar rápidamente a niños que necesiten apoyo especial,
-      como aquellos con autismo o cualquier condición que requiera atención específica en caso de extravío.
+      Nuestra misión es ser el ángel guardián digital de niños, adultos mayores, personas con Alzheimer, 
+      discapacidad o cualquier condición que merezca una capa extra de seguridad y protección.
     </p>
 
     <p class="parrafo">
-      Cada código QR lleva directamente al perfil del niño o niña, mostrando información clave para quienes puedan encontrarlos.
+      Cada código QR funciona como una identificación digital inmediata que muestra información crucial 
+      para quienes puedan necesitar ayudar a tu ser querido en caso de emergencia o extravío.
     </p>
 
     <p class="parrafo">
-      Queremos hacerlo crecer poco a poco, esperando que sea de utilidad para la sociedad.
+      Creemos en la protección inclusiva, para todas las edades y todas las necesidades especiales.
     </p>
 
-    <h2>📌 Niños Registrados</h2>
-    <ul id="listaNinos"></ul>
+    <h2>👼 Personas Registradas</h2>
+    <ul id="listaPersonas"></ul>
 
     <div class="form-button-container">
       <a href="formulario.html" class="btn-formulario">
-        📋 Llenar Formulario de Registro
+        📋 Registrar Persona
       </a>
     </div>
   </main>
@@ -48,5 +49,23 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Cargar lista dinámica desde data/lista.json
+    fetch('data/lista.json')
+      .then(res => res.json())
+      .then(lista => {
+        const listaEl = document.getElementById("listaPersonas");
+        lista.forEach(persona => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="perfil.html?persona=${persona.archivo}">${persona.nombre}</a>`;
+          listaEl.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error("Error al cargar la lista:", err);
+        document.getElementById("listaPersonas").innerHTML = "<li>No hay personas registradas todavía.</li>";
+      });
+  </script>
+
 </body>
 </html>

@@ -3,85 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Perfil del Niño</title>
+  <title>QR Angel - Perfil de Protección</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="light-mode">
 
   <header>
-    <h1><a href="index.html">Proyecto QR - Perfil del Niño</a></h1>
+    <h1><a href="index.html">QR Angel - Perfil de Protección</a></h1>
     <button class="toggle-theme" onclick="toggleTheme()" title="Cambiar tema">☀️ / 🌙</button>
   </header>
 
   <main>
     <div class="perfil" id="datos">
-      <p>Cargando datos del niño...</p>
+      <p>Cargando datos de la persona...</p>
     </div>
 
     <!-- Botón para obtener la ubicación -->
-    <button id="obtenerUbicacion">Compartir mi ubicación</button>
+    <button id="obtenerUbicacion">📍 Compartir mi ubicación</button>
     <div id="resultado"></div>
   </main>
 
   <footer>
-    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/ " target="_blank">Gama Digital Studio</a></strong>
+    ❤️ Desarrollado por <strong><a href="https://gammadigitalstudio.com/" target="_blank">Gama Digital Studio</a></strong>
   </footer>
 
   <script src="script.js" defer></script>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const nombre = urlParams.get("nino") || "david";
+    const nombrePersona = urlParams.get("persona") || "david";
+    const tipoPersona = urlParams.get("tipo") || "niño";
 
-    fetch(`data/${nombre}.json`)
+    // Emoji según el tipo de persona
+    const emojis = {
+      'niño': '👶',
+      'adulto_mayor': '👵',
+      'alzheimer': '🧠', 
+      'discapacidad': '♿',
+      'otro': '👤'
+    };
+
+    fetch(`data/${nombrePersona}.json`)
       .then(res => {
-        if (!res.ok) throw new Error("Niño no encontrado");
+        if (!res.ok) throw new Error("Persona no encontrada");
         return res.json();
       })
       .then(datos => {
+        const emoji = emojis[datos.tipo_persona] || '👼';
         const parrafosNotas = datos.notas
           .split(". ")
           .map(p => p.trim())
           .filter(p => p.length > 0);
 
         let html = `
-          <h2>🚨 Datos de ${datos.nombre}</h2>
-          <p><strong>Edad:</strong> ${datos.edad || "No especificado"} años</p>
-          <p><strong>Diagnóstico:</strong> ${datos.diagnostico || "No especificado"}</p>
-          <p><strong>Tipo de Sangre:</strong> ${datos.tipo_de_sangre || "No especificado"}</p>
-          <p><strong>Alergias:</strong> ${datos.alergias === "" ? "Ninguna" : datos.alergias}</p>
+          <div style="text-align: center; margin-bottom: 20px;">
+            <span style="font-size: 3rem;">${emoji}</span>
+            <h2>${emoji} ${datos.nombre}</h2>
+            <p style="color: #666; font-style: italic;">${obtenerTipoTexto(datos.tipo_persona)}</p>
+          </div>
+          
+          <div class="info-section">
+            <h3>📋 Información Personal</h3>
+            <p><strong>Edad:</strong> ${datos.edad || "No especificado"}</p>
+            <p><strong>Condición:</strong> ${datos.diagnostico || "No especificado"}</p>
+            <p><strong>Tipo de Sangre:</strong> ${datos.tipo_de_sangre || "No especificado"}</p>
+            <p><strong>Alergias:</strong> ${datos.alergias === "" ? "Ninguna" : datos.alergias}</p>
+          </div>
 
-          <p><strong>Contacto Principal:</strong></p>
-          <ul>
-            <li><strong>Nombre:</strong> ${datos.contacto1?.nombre || "No especificado"}</li>
-            <li><strong>Parentesco:</strong> ${datos.contacto1?.parentesco || "No especificado"}</li>
-            <li><strong>Teléfono:</strong> ${datos.contacto1?.telefono || "No especificado"}</li>
-          </ul>
+          <div class="info-section">
+            <h3>📞 Contacto de Emergencia 1</h3>
+            <ul>
+              <li><strong>Nombre:</strong> ${datos.contacto1?.nombre || "No especificado"}</li>
+              <li><strong>Parentesco:</strong> ${datos.contacto1?.parentesco || "No especificado"}</li>
+              <li><strong>Teléfono:</strong> ${datos.contacto1?.telefono || "No especificado"}</li>
+            </ul>
+          </div>
         `;
 
         if (datos.contacto2 && (datos.contacto2.nombre || datos.contacto2.telefono)) {
           html += `
-            <p><strong>Contacto Secundario:</strong></p>
-            <ul>
-              <li><strong>Nombre:</strong> ${datos.contacto2.nombre || "No especificado"}</li>
-              <li><strong>Parentesco:</strong> ${datos.contacto2.parentesco || "No especificado"}</li>
-              <li><strong>Teléfono:</strong> ${datos.contacto2.telefono || "No especificado"}</li>
-            </ul>
+            <div class="info-section">
+              <h3>📞 Contacto de Emergencia 2</h3>
+              <ul>
+                <li><strong>Nombre:</strong> ${datos.contacto2.nombre || "No especificado"}</li>
+                <li><strong>Parentesco:</strong> ${datos.contacto2.parentesco || "No especificado"}</li>
+                <li><strong>Teléfono:</strong> ${datos.contacto2.telefono || "No especificado"}</li>
+              </ul>
+            </div>
           `;
         }
 
-        html += `<p><strong>Notas importantes:</strong></p>`;
-        parrafosNotas.forEach(parrafo => {
-          html += `<p>${parrafo}.</p>`;
-        });
+        if (datos.notas && datos.notas !== "Ninguna") {
+          html += `
+            <div class="info-section">
+              <h3>📝 Información Importante</h3>
+          `;
+          parrafosNotas.forEach(parrafo => {
+            html += `<p>${parrafo}.</p>`;
+          });
+          html += `</div>`;
+        }
+
+        html += `
+          <div class="info-section" style="text-align: center; margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+            <p style="margin: 0; color: #666;">👼 Este perfil fue creado con <strong>QR Angel</strong> - Protección Digital</p>
+          </div>
+        `;
 
         document.getElementById("datos").innerHTML = html;
       })
       .catch(err => {
-        document.getElementById("datos").innerHTML = "<p>Error: Niño no encontrado.</p>";
+        document.getElementById("datos").innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <span style="font-size: 4rem;">😢</span>
+            <h2>Persona no encontrada</h2>
+            <p>El perfil solicitado no existe o no está disponible.</p>
+            <a href="index.html" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: var(--accent-color); color: white; text-decoration: none; border-radius: 5px;">
+              Volver al inicio
+            </a>
+          </div>
+        `;
         console.error("Error al cargar datos:", err);
       });
+
+    function obtenerTipoTexto(tipo) {
+      const tipos = {
+        'niño': 'Niño/Niña bajo protección QR Angel',
+        'adulto_mayor': 'Adulto Mayor bajo protección QR Angel',
+        'alzheimer': 'Persona con Alzheimer - Protección QR Angel',
+        'discapacidad': 'Persona con Discapacidad - Protección QR Angel',
+        'otro': 'Persona bajo protección QR Angel'
+      };
+      return tipos[tipo] || 'Protegido por QR Angel';
+    }
   </script>
+
+  <style>
+    .info-section {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent-color);
+    }
+    
+    .info-section h3 {
+      color: var(--accent-color);
+      margin-top: 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+  </style>
 
 </body>
 </html>

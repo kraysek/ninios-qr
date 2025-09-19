@@ -15,8 +15,7 @@ def guardar_json(datos, nombre_archivo):
     with open(os.path.join(DATA_DIR, f"{nombre_archivo}.json"), 'w', encoding='utf-8') as f:
         json.dump(datos, f, indent=4, ensure_ascii=False)
 
-def actualizar_lista(nombre_real, nombre_archivo):
-    # Crear o actualizar lista.json
+def actualizar_lista(nombre_real, nombre_archivo, tipo_persona):
     if not os.path.exists(LISTA_JSON):
         with open(LISTA_JSON, "w", encoding="utf-8") as f:
             json.dump([], f)
@@ -30,18 +29,20 @@ def actualizar_lista(nombre_real, nombre_archivo):
     if not any(item["archivo"] == nombre_archivo for item in lista):
         lista.append({
             "nombre": nombre_real,
-            "archivo": nombre_archivo
+            "archivo": nombre_archivo,
+            "tipo": tipo_persona,
+            "fecha_registro": os.path.getctime(LISTA_JSON) if os.path.exists(LISTA_JSON) else "N/A"
         })
 
     with open(LISTA_JSON, "w", encoding="utf-8") as f:
         json.dump(lista, f, indent=4, ensure_ascii=False)
 
-def generar_qr(nombre_nino):
-    url_perfil = f"https://kraysek.github.io/ninios-qr/perfil.html?nino={limpiar_nombre(nombre_nino)}"
+def generar_qr(nombre_persona, tipo_persona):
+    url_perfil = f"https://kraysek.github.io/ninios-qr/perfil.html?persona={limpiar_nombre(nombre_persona)}&tipo={tipo_persona}"
     qr = qrcode.make(url_perfil)
-    nombre_archivo_qr = f"qr_{limpiar_nombre(nombre_nino)}.png"
+    nombre_archivo_qr = f"qr_{limpiar_nombre(nombre_persona)}.png"
     qr.save(os.path.join(QR_DIR, nombre_archivo_qr))
-    print(f"\n✅ QR generado como '{nombre_archivo_qr}'")
+    print(f"\n✅ QR Angel generado como '{nombre_archivo_qr}'")
     print(f"🔗 Este QR lleva a: {url_perfil}")
 
 def leer_datos_desde_txt(archivo_txt):
@@ -55,7 +56,10 @@ def leer_datos_desde_txt(archivo_txt):
     return datos
 
 def main():
-    print("\n📄 Registro desde TXT - Proyecto QR - Niños Vulnerables\n")
+    print("\n👼 QR Angel - Registro de Personas\n")
+    print("Protección digital para: niños, adultos mayores, Alzheimer, discapacidad")
+    print("-" * 60)
+    
     archivo_txt = input("Nombre del archivo TXT (sin extensión): ").strip() + ".txt"
 
     if not os.path.exists(archivo_txt):
@@ -64,57 +68,52 @@ def main():
 
     datos = leer_datos_desde_txt(archivo_txt)
 
-    nombre = datos.get("nombre", "")
-    edad = datos.get("edad", "")
-    diagnostico = datos.get("diagnostico", "")
-    tipo_de_sangre = datos.get("tipo_de_sangre", "")
-    alergias = datos.get("alergias", "") or "Ninguna"
-    notas = datos.get("notas", "")
+    # Mapeo de campos con valores por defecto
+    campos = {
+        'nombre': '', 'edad': '', 'tipo_atencion': '', 'condicion': '',
+        'tipo_de_sangre': '', 'alergias': 'Ninguna', 'notas': '',
+        'contacto1_nombre': '', 'contacto1_parentesco': '', 'contacto1_telefono': '',
+        'contacto2_nombre': '', 'contacto2_parentesco': '', 'contacto2_telefono': ''
+    }
 
-    contacto1_nombre = datos.get("contacto1_nombre", "")
-    contacto1_parentesco = datos.get("contacto1_parentesco", "")
-    contacto1_telefono = datos.get("contacto1_telefono", "")
+    for campo in campos:
+        campos[campo] = datos.get(campo, campos[campo])
 
-    contacto2_nombre = datos.get("contacto2_nombre", "")
-    contacto2_parentesco = datos.get("contacto2_parentesco", "")
-    contacto2_telefono = datos.get("contacto2_telefono", "")
-
-    if not nombre:
+    if not campos['nombre']:
         print("❌ Error: El archivo no tiene un nombre válido.")
         return
 
-    contacto1 = {
-        "nombre": contacto1_nombre or "",
-        "parentesco": contacto1_parentesco or "",
-        "telefono": contacto1_telefono or ""
+    # Estructurar datos para JSON
+    perfil = {
+        "nombre": campos['nombre'],
+        "edad": campos['edad'],
+        "tipo_persona": campos['tipo_atencion'],
+        "diagnostico": campos['condicion'],
+        "tipo_de_sangre": campos['tipo_de_sangre'],
+        "alergias": campos['alergias'],
+        "notas": campos['notas'],
+        "contacto1": {
+            "nombre": campos['contacto1_nombre'],
+            "parentesco": campos['contacto1_parentesco'],
+            "telefono": campos['contacto1_telefono']
+        }
     }
 
-    contacto2 = {}
-    if contacto2_nombre or contacto2_parentesco or contacto2_telefono:
-        contacto2 = {
-            "nombre": contacto2_nombre or "",
-            "parentesco": contacto2_parentesco or "",
-            "telefono": contacto2_telefono or ""
+    # Agregar contacto 2 solo si existe
+    if campos['contacto2_nombre'] or campos['contacto2_parentesco'] or campos['contacto2_telefono']:
+        perfil["contacto2"] = {
+            "nombre": campos['contacto2_nombre'],
+            "parentesco": campos['contacto2_parentesco'],
+            "telefono": campos['contacto2_telefono']
         }
 
-    perfil = {
-        "nombre": nombre,
-        "edad": edad,
-        "diagnostico": diagnostico,
-        "tipo_de_sangre": tipo_de_sangre,
-        "alergias": alergias,
-        "notas": notas,
-        "contacto1": contacto1,
-        "contacto2": contacto2
-    }
-
-    nombre_guardado = limpiar_nombre(nombre.split(" ")[0])  # Usa el primer nombre como identificador 
+    nombre_guardado = limpiar_nombre(campos['nombre'].split(" ")[0])
 
     guardar_json(perfil, nombre_guardado)
-    generar_qr(nombre_guardado)
-    actualizar_lista(nombre, nombre_guardado)
+    generar_qr(campos['nombre'], campos['tipo_atencion'])
+    actualizar_lista(campos['nombre'], nombre_guardado, campos['tipo_atencion'])
 
-    print("\n✅ El niño/a ha sido registrado exitosamente.")
+    print("\n✅ La persona ha sido registrada exitosamente en QR Angel.")
     print(f"📁 Datos guardados en: ../data/{nombre_guardado}.json")
     print(f"📌 Ahora aparecerá en la lista del sitio web.")
 
