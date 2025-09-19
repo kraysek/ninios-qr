@@ -10,9 +10,7 @@
 
   <header>
     <h1><a href="index.html">QR Angel - Protección Digital</a></h1>
-    <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">
-      ☀️ / 🌙
-    </button>
+    <button class="toggle-theme" id="toggleTheme" title="Cambiar tema">☀️</button>
   </header>
 
   <main>
@@ -30,12 +28,10 @@
       para quienes puedan necesitar ayudar a tu ser querido en caso de emergencia o extravío.
     </p>
 
-    <p class="parrafo">
-      Creemos en la protección inclusiva, para todas las edades y todas las necesidades especiales.
-    </p>
-
     <h2>👼 Personas Registradas</h2>
-    <ul id="listaPersonas"></ul>
+    <ul id="listaPersonas">
+      <li>Cargando personas...</li>
+    </ul>
 
     <div class="form-button-container">
       <a href="formulario.html" class="btn-formulario">
@@ -49,23 +45,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    // Cargar lista dinámica desde data/lista.json
-    fetch('data/lista.json')
-      .then(res => res.json())
-      .then(lista => {
-        const listaEl = document.getElementById("listaPersonas");
-        lista.forEach(persona => {
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="perfil.html?persona=${persona.archivo}">${persona.nombre}</a>`;
-          listaEl.appendChild(li);
-        });
-      })
-      .catch(err => {
-        console.error("Error al cargar la lista:", err);
-        document.getElementById("listaPersonas").innerHTML = "<li>No hay personas registradas todavía.</li>";
-      });
-  </script>
-
 </body>
 </html>
