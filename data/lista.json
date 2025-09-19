@@ -10,5 +10,11 @@
     {
         "nombre": "Armando del Valle Beamonte",
         "archivo": "armando"
+    },
+    {
+        "nombre": "ana garcia",
+        "archivo": "ana",
+        "tipo": "otro",
+        "fecha_registro": 1758221191.8763108
     }
 ]
