@@ -1,7 +1,8 @@
 {
     "nombre": "Armando del Valle Beamonte",
     "edad": "83",
-    "diagnostico": "Cancer tratado",
+    "tipo_persona": "",
+    "diagnostico": "",
     "tipo_de_sangre": "O+",
     "alergias": "N/A",
     "notas": "Ninguna",
@@ -9,6 +10,5 @@
         "nombre": "Erick del Valle Vidaña",
         "parentesco": "hijo",
         "telefono": "5519513415"
-    },
-    "contacto2": {}
+    }
 }

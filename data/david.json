@@ -1,7 +1,8 @@
 {
     "nombre": "David Martinez Hernandez",
     "edad": "14",
-    "diagnostico": "Autismo tipico",
+    "tipo_persona": "",
+    "diagnostico": "",
     "tipo_de_sangre": "A positivo",
     "alergias": "ninguna",
     "notas": "espacio para otras cosas",
