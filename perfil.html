@@ -31,8 +31,8 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const nombrePersona = urlParams.get("persona") || "david";
-    const tipoPersona = urlParams.get("tipo") || "niño";
+    const nombrePersona = urlParams.get("persona") || "nombre_no_especificado";
+    const tipoPersona = urlParams.get("tipo") || "otro";
 
     // Emoji según el tipo de persona
     const emojis = {
