@@ -1,20 +1,20 @@
 [
     {
-        "nombre": "David Martinez Hernandez",
-        "archivo": "david"
+        "nombre": "Maria de los Angeles Ceron  Perez",
+        "archivo": "maria",
+        "tipo": "",
+        "fecha_registro": 1758248316.2283845
     },
     {
-        "nombre": "Maria de los Angeles Ceron  Perez",
-        "archivo": "maria"
+        "nombre": "David Martinez Hernandez",
+        "archivo": "david",
+        "tipo": "",
+        "fecha_registro": 1758248316.2283845
     },
     {
         "nombre": "Armando del Valle Beamonte",
-        "archivo": "armando"
-    },
-    {
-        "nombre": "ana garcia",
-        "archivo": "ana",
-        "tipo": "otro",
-        "fecha_registro": 1758221191.8763108
+        "archivo": "armando",
+        "tipo": "",
+        "fecha_registro": 1758248362.1612961
     }
 ]
