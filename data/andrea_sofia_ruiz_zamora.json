@@ -1,0 +1,19 @@
+{
+    "nombre": "Andrea Sofia Ruiz Zamora",
+    "edad": "15",
+    "tipo_persona": "niño",
+    "diagnostico": "atencion dispersa",
+    "tipo_de_sangre": "O+",
+    "alergias": "Ninguna",
+    "notas": "espacio para informacion adicional",
+    "contacto1": {
+        "nombre": "julio ruiz fierro",
+        "parentesco": "padre",
+        "telefono": "5570795643"
+    },
+    "contacto2": {
+        "nombre": "Adriana Zamora",
+        "parentesco": "mama",
+        "telefono": "5571682069"
+    }
+}

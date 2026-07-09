@@ -1,0 +1,27 @@
+# QR Angel - Protección Digital
+
+# DATOS DE LA PERSONA
+nombre: Andrea Sofia Ruiz Zamora
+edad: 15
+tipo_atencion: niño
+condicion: atencion dispersa
+tipo_de_sangre: O+
+alergias: Ninguna
+
+# CONTACTO DE EMERGENCIA 1
+contacto1_nombre: julio ruiz fierro
+contacto1_parentesco: padre
+contacto1_telefono: 5570795643
+
+# CONTACTO DE EMERGENCIA 2
+contacto2_nombre: Adriana Zamora
+contacto2_parentesco: mama
+contacto2_telefono: 5571682069
+
+# INFORMACIÓN ADICIONAL
+notas: espacio para informacion adicional
+
+# METADATOS
+fecha_registro: 8/7/2026
+hora_registro: 11:30:23 p.m.
+proyecto: QR Angel - Protección Digital
